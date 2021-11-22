@@ -36,7 +36,12 @@ export default function Login(props) {
 
 	return (
 		<div
-			style={{ alignItems: "center", display: "flex", flexDirection: "column" }}
+			style={{
+				alignItems: "center",
+				display: "flex",
+				flex: 1,
+				flexDirection: "column",
+			}}
 		>
 			<h2 style={{ margin: "30px" }}>Login</h2>
 			<Form className="form-group mb-3" onChange={onChange}>

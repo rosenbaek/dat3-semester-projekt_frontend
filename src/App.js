@@ -28,7 +28,12 @@ function App() {
 	return (
 		<div
 			className="App"
-			style={{ display: "flex", minHeight: "100%", overflow: "hidden" }}
+			style={{
+				display: "flex",
+				minHeight: "100%",
+				flex: 1,
+				overflow: "hidden",
+			}}
 		>
 			{loggedIn ? (
 				<>
