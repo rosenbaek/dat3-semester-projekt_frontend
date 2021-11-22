@@ -2,15 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Login from "./screens/LoginScreen";
 import { Switch, Route, useHistory } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/utility/PrivateRoute";
 import Home from "./screens/DashboardScreen";
 import ProtectedScreen from "./screens/ProtectedScreen";
-import Facade from "./facades/loginFacade";
+import Facade from "./facades/Facade";
 import AdminScreen from "./screens/AdminScreen";
-import Sidebar from "./components/Sidebar";
-import TopBar from "./components/TopBar";
-
-//import PrivateRoute from "./components/PrivateRoute";
+import Sidebar from "./components/navigation/Sidebar";
+import TopBar from "./components/navigation/TopBar";
 
 function App() {
 	const [loggedIn, setLoggedIn] = React.useState(Facade.loggedIn());
@@ -25,7 +23,6 @@ function App() {
 
 	useEffect(() => {
 		setUser(Facade.getUser);
-		console.log(user);
 	}, [loggedIn, history]);
 
 	return (

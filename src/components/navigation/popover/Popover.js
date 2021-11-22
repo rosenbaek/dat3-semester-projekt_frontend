@@ -1,11 +1,7 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useRef, useState } from "react";
-import homeFill from "@iconify/icons-eva/home-fill";
-import personFill from "@iconify/icons-eva/person-fill";
-import settings2Fill from "@iconify/icons-eva/settings-2-fill";
 import { Link as RouterLink } from "react-router-dom";
-import Facade from "../facades/loginFacade";
-// material
+import Facade from "../../../facades/Facade";
 import { alpha } from "@mui/material/styles";
 import {
 	Button,
@@ -16,34 +12,12 @@ import {
 	Avatar,
 	IconButton,
 } from "@mui/material";
-// components
+
 import MenuPopover from "./MenuPopover";
-import loginFacade from "../facades/loginFacade";
-//
+import loginFacade from "../../../facades/Facade";
+import { MENU_OPTIONS } from "../MenuItems";
 
-// ----------------------------------------------------------------------
-
-const MENU_OPTIONS = [
-	{
-		label: "Home",
-		icon: homeFill,
-		linkTo: "/",
-	},
-	{
-		label: "Profile",
-		icon: personFill,
-		linkTo: "#",
-	},
-	{
-		label: "Settings",
-		icon: settings2Fill,
-		linkTo: "#",
-	},
-];
-
-// ----------------------------------------------------------------------
-
-export default function AccountPopover(props) {
+export default function Popover(props) {
 	const anchorRef = useRef(null);
 	const [open, setOpen] = useState(false);
 	const [user, setUser] = useState();
@@ -87,7 +61,7 @@ export default function AccountPopover(props) {
 				}}
 			>
 				<Avatar
-					src={"/static/mock-images/avatars/avatar_default.jpg"}
+					src={"static/mock-images/avatars/avatar_default.jpg"}
 					alt="photoURL"
 				/>
 			</IconButton>
@@ -127,15 +101,25 @@ export default function AccountPopover(props) {
 						to={option.linkTo}
 						component={RouterLink}
 						onClick={handleClose}
-						sx={{ typography: "body2", py: 1, px: 2.5 }}
+						sx={{
+							typography: "body2",
+							py: 1,
+							mx: 0.5,
+							"&:hover": {
+								color: "black",
+								backgroundColor: "#eeeeee",
+								borderRadius: 3,
+								mx: 0.5,
+							},
+						}}
 					>
 						<Box
 							component={Icon}
 							icon={option.icon}
 							sx={{
 								mr: 2,
-								width: 24,
-								height: 24,
+								width: 22,
+								height: 22,
 							}}
 						/>
 

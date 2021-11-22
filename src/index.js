@@ -9,7 +9,7 @@ import reportWebVitals from "./reportWebVitals";
 const rootElement = document.getElementById("root");
 ReactDOM.render(
 	<React.StrictMode>
-		<Router>
+		<Router basename="/stockmonitor">
 			<App />
 		</Router>
 	</React.StrictMode>,

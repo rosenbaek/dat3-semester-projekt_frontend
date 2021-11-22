@@ -3,10 +3,10 @@ import { Icon } from "@iconify/react";
 import menu2Fill from "@iconify/icons-eva/menu-2-fill";
 // material
 import { alpha, styled } from "@mui/material/styles";
-import { Box, Stack, AppBar, Toolbar, IconButton } from "@mui/material";
+import { Box, AppBar, Toolbar, IconButton } from "@mui/material";
 // components
-import { MHidden } from "../components/@material-extend";
-import AccountPopover from "./AccountPopover";
+import HideComponent from "../utility/HideComponent";
+import Popover from "./popover/Popover";
 
 // ----------------------------------------------------------------------
 
@@ -42,24 +42,20 @@ export default function TopBar({ onOpenSidebar, changeLoginStatus, user }) {
 	return (
 		<RootStyle>
 			<ToolbarStyle>
-				<MHidden width="lgUp">
+				{/* hides below if lgUp or bigger */}
+				<HideComponent width="lgUp">
 					<IconButton
 						onClick={onOpenSidebar}
 						sx={{ mr: 1, color: "text.primary" }}
 					>
 						<Icon icon={menu2Fill} />
 					</IconButton>
-				</MHidden>
+				</HideComponent>
 
+				{/* Used to align AccountPopover to the right */}
 				<Box sx={{ flexGrow: 1 }} />
 
-				<Stack
-					direction="row"
-					alignItems="center"
-					spacing={{ xs: 0.5, sm: 1.5 }}
-				>
-					<AccountPopover changeLoginStatus={changeLoginStatus} />
-				</Stack>
+				<Popover changeLoginStatus={changeLoginStatus} />
 			</ToolbarStyle>
 		</RootStyle>
 	);

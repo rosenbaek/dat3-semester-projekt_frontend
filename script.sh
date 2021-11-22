@@ -1,0 +1,1 @@
+scp -r ./build root@64.225.99.193:/var/www/stockmonitor

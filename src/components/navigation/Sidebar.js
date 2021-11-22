@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-import { Link as RouterLink, useLocation, matchPath } from "react-router-dom";
+import { useEffect } from "react";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 // material
 import { styled } from "@mui/material/styles";
 import {
@@ -16,9 +16,8 @@ import {
 	ListItemIcon,
 } from "@mui/material";
 
-// components
-import { MHidden } from "../components/@material-extend";
-import MenuValues from "./MenuValues";
+import HideComponent from "../utility/HideComponent";
+import MenuValues from "./MenuItems";
 
 // ----------------------------------------------------------------------
 
@@ -76,12 +75,11 @@ export default function Sidebar({
 				<Link underline="none" component={RouterLink} to="/">
 					<AccountStyle>
 						<Avatar
-							src={"/static/mock-images/avatars/avatar_default.jpg"}
+							src={"static/mock-images/avatars/avatar_default.jpg"}
 							alt="photoURL"
 						/>
 						<Box sx={{ ml: 2 }}>
 							<Typography
-								variant="subtitle2"
 								sx={{ color: "text.primary", textTransform: "capitalize" }}
 							>
 								{user ? user.username : "not logged in"}
@@ -164,7 +162,8 @@ export default function Sidebar({
 
 	return (
 		<RootStyle>
-			<MHidden width="lgUp">
+			{/* hides below if lgUp or bigger */}
+			<HideComponent width="lgUp">
 				<Drawer
 					open={isOpenSidebar}
 					onClose={onCloseSidebar}
@@ -174,9 +173,9 @@ export default function Sidebar({
 				>
 					{renderContent}
 				</Drawer>
-			</MHidden>
-
-			<MHidden width="lgDown">
+			</HideComponent>
+			{/* hides below if lgDown or less */}
+			<HideComponent width="lgDown">
 				<Drawer
 					open
 					variant="persistent"
@@ -189,7 +188,7 @@ export default function Sidebar({
 				>
 					{renderContent}
 				</Drawer>
-			</MHidden>
+			</HideComponent>
 		</RootStyle>
 	);
 }

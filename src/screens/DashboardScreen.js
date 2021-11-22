@@ -1,7 +1,7 @@
 import { Table } from "react-bootstrap";
 import { styled } from "@mui/material/styles";
 import { Box, Grid, Container, Typography } from "@mui/material";
-import GroupView from "../components/GroupView";
+import GroupView from "../components/GroupComponent";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;

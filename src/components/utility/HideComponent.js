@@ -5,7 +5,7 @@ import { useTheme } from "@mui/material/styles";
 
 // ----------------------------------------------------------------------
 
-MHidden.propTypes = {
+HideComponent.propTypes = {
 	children: PropTypes.node,
 	width: PropTypes.oneOf([
 		"xsDown",
@@ -21,7 +21,7 @@ MHidden.propTypes = {
 	]).isRequired,
 };
 
-export default function MHidden({ width, children }) {
+export default function HideComponent({ width, children }) {
 	const breakpoint = width.substring(0, 2);
 	const theme = useTheme();
 	const hiddenUp = useMediaQuery(theme.breakpoints.up(breakpoint));
