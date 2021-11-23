@@ -9,20 +9,10 @@ import HideComponent from "../utility/HideComponent";
 import Popover from "./popover/Popover";
 
 // ----------------------------------------------------------------------
-
 const DRAWER_WIDTH = 280;
+const DRAWER_WIDTH_MINI = 70;
 const APPBAR_MOBILE = 64;
 const APPBAR_DESKTOP = 92;
-
-const RootStyle = styled(AppBar)(({ theme }) => ({
-	boxShadow: "none",
-	backdropFilter: "blur(6px)",
-	WebkitBackdropFilter: "blur(6px)", // Fix on Mobile
-	backgroundColor: alpha(theme.palette.background.default, 0.72),
-	[theme.breakpoints.up("lg")]: {
-		width: `calc(100% - ${DRAWER_WIDTH + 1}px)`,
-	},
-}));
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
 	minHeight: APPBAR_MOBILE,
@@ -38,7 +28,22 @@ TopBar.propTypes = {
 	onOpenSidebar: PropTypes.func,
 };
 
-export default function TopBar({ onOpenSidebar, changeLoginStatus, user }) {
+export default function TopBar({
+	onOpenSidebar,
+	changeLoginStatus,
+	isOpenSidebar,
+}) {
+	const RootStyle = styled(AppBar)(({ theme }) => ({
+		boxShadow: "none",
+		backdropFilter: "blur(6px)",
+		WebkitBackdropFilter: "blur(6px)", // Fix on Mobile
+		backgroundColor: alpha(theme.palette.background.default, 0.72),
+		[theme.breakpoints.up("lg")]: {
+			width: `calc(100% - ${
+				isOpenSidebar ? DRAWER_WIDTH + 1 : DRAWER_WIDTH_MINI
+			}px)`,
+		},
+	}));
 	return (
 		<RootStyle>
 			<ToolbarStyle>

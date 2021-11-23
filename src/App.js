@@ -32,18 +32,18 @@ function App() {
 				display: "flex",
 				minHeight: "100%",
 				flex: 1,
-				overflow: "hidden",
 			}}
 		>
 			{loggedIn ? (
 				<>
 					<Sidebar
 						isOpenSidebar={open}
-						onCloseSidebar={() => setOpen(false)}
+						onCloseSidebar={() => setOpen(!open)}
 						loggedIn={loggedIn}
 						user={user}
 					/>
 					<TopBar
+						isOpenSidebar={open}
 						changeLoginStatus={changeLoginStatus}
 						onOpenSidebar={() => setOpen(true)}
 						user={user}

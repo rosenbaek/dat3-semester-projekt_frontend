@@ -6,36 +6,64 @@ import { styled } from "@mui/material/styles";
 import {
 	Box,
 	Link,
-	Drawer,
 	Typography,
 	List,
+	Drawer as Drawer1,
 	Avatar,
 	useTheme,
 	ListItemButton,
 	ListItemText,
 	ListItemIcon,
+	IconButton,
 } from "@mui/material";
-
+import MuiDrawer from "@mui/material/Drawer";
 import HideComponent from "../utility/HideComponent";
 import MenuValues from "./MenuItems";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import menu2Fill from "@iconify/icons-eva/menu-2-fill";
+import { Icon } from "@iconify/react";
 
 // ----------------------------------------------------------------------
 
 const DRAWER_WIDTH = 280;
+const DRAWER_WIDTH_MINI = 70;
 
-const RootStyle = styled("div")(({ theme }) => ({
-	[theme.breakpoints.up("lg")]: {
-		flexShrink: 0,
-		width: DRAWER_WIDTH,
+const openedMixin = (theme) => ({
+	width: DRAWER_WIDTH,
+	transition: theme.transitions.create("width", {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.enteringScreen,
+	}),
+	overflowX: "hidden",
+});
+
+const closedMixin = (theme) => ({
+	transition: theme.transitions.create("width", {
+		easing: theme.transitions.easing.sharp,
+		duration: theme.transitions.duration.leavingScreen,
+	}),
+	overflowX: "hidden",
+	width: `calc(${theme.spacing(7)} + 1px)`,
+	[theme.breakpoints.up("sm")]: {
+		width: `calc(${theme.spacing(9)} + 1px)`,
 	},
-}));
+});
 
-const AccountStyle = styled("div")(({ theme }) => ({
-	display: "flex",
-	alignItems: "center",
-	padding: theme.spacing(2, 2.5),
-	borderRadius: 10,
-	backgroundColor: theme.palette.grey[200],
+const Drawer = styled(MuiDrawer, {
+	shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+	width: DRAWER_WIDTH,
+	flexShrink: 0,
+	whiteSpace: "nowrap",
+	boxSizing: "border-box",
+	...(open && {
+		...openedMixin(theme),
+		"& .MuiDrawer-paper": openedMixin(theme),
+	}),
+	...(!open && {
+		...closedMixin(theme),
+		"& .MuiDrawer-paper": closedMixin(theme),
+	}),
 }));
 
 // ----------------------------------------------------------------------
@@ -45,14 +73,24 @@ Sidebar.propTypes = {
 	onCloseSidebar: PropTypes.func,
 };
 
-export default function Sidebar({
-	isOpenSidebar,
-	onCloseSidebar,
-	loggedIn,
-	user,
-}) {
+export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 	const { pathname } = useLocation();
 	const theme = useTheme();
+
+	const RootStyle = styled("div")(({ theme }) => ({
+		[theme.breakpoints.up("lg")]: {
+			flexShrink: 1,
+			width: isOpenSidebar ? DRAWER_WIDTH : DRAWER_WIDTH_MINI,
+		},
+	}));
+
+	const AccountStyle = styled("div")(({ theme }) => ({
+		display: "flex",
+		alignItems: "center",
+		padding: isOpenSidebar ? theme.spacing(2, 2) : theme.spacing(2, 0),
+		borderRadius: 10,
+		backgroundColor: isOpenSidebar ? theme.palette.grey[200] : null,
+	}));
 
 	useEffect(() => {
 		if (isOpenSidebar) {
@@ -63,15 +101,25 @@ export default function Sidebar({
 
 	const renderContent = (
 		<>
-			<Box sx={{ px: 2.5, py: 3 }}>
-				<Box
-					component={RouterLink}
-					to="/"
-					sx={{ display: "inline-flex" }}
-				></Box>
+			<Box sx={{ py: 2 }}>
+				<Box onClick={onCloseSidebar}>
+					<IconButton
+						onClick={onCloseSidebar}
+						sx={
+							isOpenSidebar
+								? {
+										float: "right",
+										marginRight: 2,
+								  }
+								: {}
+						}
+					>
+						{isOpenSidebar ? <ChevronLeftIcon /> : <Icon icon={menu2Fill} />}
+					</IconButton>
+				</Box>
 			</Box>
 
-			<Box sx={{ mb: 5, mx: 2.5 }}>
+			<Box sx={{ mb: 5, mx: 2 }}>
 				<Link underline="none" component={RouterLink} to="/">
 					<AccountStyle>
 						<Avatar
@@ -99,11 +147,13 @@ export default function Sidebar({
 									sx={{
 										height: 48,
 										color: "grey",
-										mx: 2.5,
+										mx: 2,
 										mb: 1,
 										borderRadius: 3,
 										textTransform: "capitalize",
-										paddingLeft: theme.spacing(2.5),
+										paddingLeft: isOpenSidebar
+											? theme.spacing(2.5)
+											: theme.spacing(1),
 										paddingRight: theme.spacing(2.5),
 
 										"&:hover": {
@@ -143,7 +193,7 @@ export default function Sidebar({
 				<Box
 					sx={{
 						mb: 2,
-						mx: 2.5,
+						mx: isOpenSidebar ? 2 : 1,
 						p: 1,
 						bgcolor: "grey.200",
 						borderRadius: 2,
@@ -152,9 +202,7 @@ export default function Sidebar({
 						":hover": { bgcolor: "grey.300" },
 					}}
 				>
-					<Box sx={{ textAlign: "center" }}>
-						<Typography variant="h6">DKK</Typography>
-					</Box>
+					<Typography variant="h6">DKK</Typography>
 				</Box>
 			</Link>
 		</>
@@ -164,21 +212,23 @@ export default function Sidebar({
 		<RootStyle>
 			{/* hides below if lgUp or bigger */}
 			<HideComponent width="lgUp">
-				<Drawer
+				<Drawer1
 					open={isOpenSidebar}
+					variant="temporary"
 					onClose={onCloseSidebar}
 					PaperProps={{
 						sx: { width: DRAWER_WIDTH },
 					}}
 				>
 					{renderContent}
-				</Drawer>
+				</Drawer1>
 			</HideComponent>
 			{/* hides below if lgDown or less */}
 			<HideComponent width="lgDown">
 				<Drawer
-					open
-					variant="persistent"
+					open={isOpenSidebar}
+					variant="permanent"
+					onClose={onCloseSidebar}
 					PaperProps={{
 						sx: {
 							width: DRAWER_WIDTH,
