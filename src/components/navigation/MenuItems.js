@@ -27,6 +27,12 @@ const MenuValues = [
 		auth: ["user"],
 		icon: getIcon(fileTextFill),
 	},
+	{
+		titel: "Stocks",
+		path: "/stocks",
+		auth: ["user"],
+		icon: getIcon(fileTextFill),
+	},
 ];
 
 export const MENU_OPTIONS = [

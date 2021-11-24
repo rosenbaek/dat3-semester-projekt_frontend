@@ -9,6 +9,7 @@ import Facade from "./facades/Facade";
 import AdminScreen from "./screens/AdminScreen";
 import Sidebar from "./components/navigation/Sidebar";
 import TopBar from "./components/navigation/TopBar";
+import StockScreen from "./screens/StockScreen";
 
 function App() {
 	const [loggedIn, setLoggedIn] = React.useState(Facade.loggedIn());
@@ -70,6 +71,12 @@ function App() {
 					loggedIn={loggedIn}
 					user={user}
 					component={AdminScreen}
+				/>
+				<PrivateRoute
+					path="/stocks"
+					loggedIn={loggedIn}
+					user={user}
+					component={StockScreen}
 				/>
 
 				<Route path="/login">

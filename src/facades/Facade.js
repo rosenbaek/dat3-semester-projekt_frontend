@@ -19,12 +19,12 @@ const Facade = () => {
 				console.log(JSON.stringify(res));
 				setToken(res.token);
 				//Sets user in localstorage for usage later
-				setUser(res.username,res.roles);
+				setUser(res.username, res.roles);
 			});
 	};
 
-	const setUser = (username,roles) => {
-		const user = {username,roles}
+	const setUser = (username, roles) => {
+		const user = { username, roles };
 		//makes the user object in json format, as you cant store objects in localStorage
 		localStorage.setItem("user", JSON.stringify(user));
 	};
@@ -44,11 +44,6 @@ const Facade = () => {
 	const logout = () => {
 		localStorage.removeItem("jwtToken");
 		localStorage.removeItem("user");
-	};
-
-	const fetchData = () => {
-		const options = makeOptions("GET", true); //True add's the token
-		return fetch(URL + "/api/jokes", options).then(handleHttpErrors);
 	};
 
 	const makeOptions = (method, addToken, body) => {
@@ -76,7 +71,6 @@ const Facade = () => {
 		loggedIn,
 		login,
 		logout,
-		fetchData,
 	};
 };
 
