@@ -1,4 +1,5 @@
 import { styled } from "@mui/material/styles";
+import { useEffect, useState } from "react";
 import AddStockComponent from "../components/AddStockComponent";
 import StockListComponent from "../components/StockListComponent";
 
@@ -19,10 +20,19 @@ const MainStyle = styled("div")(({ theme }) => ({
 }));
 
 const StockScreen = () => {
+	const [reload, setReload] = useState(true);
+
+	const handleReload = () => {
+		setReload(!reload);
+	};
+
+	useEffect(() => {
+		console.log("test: " + reload);
+	});
 	return (
 		<MainStyle>
-			<AddStockComponent />
-			<StockListComponent />
+			<AddStockComponent handleReload={handleReload} />
+			<StockListComponent reload={reload} />
 		</MainStyle>
 	);
 };

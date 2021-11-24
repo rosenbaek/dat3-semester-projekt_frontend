@@ -30,18 +30,27 @@ const columns = [
 	},
 ];
 
-const StockListComponent = () => {
-	const [data, setData] = useState();
+const StockListComponent = (props) => {
+	const [rows, setRows] = useState();
 
 	useEffect(() => {
 		StockFacade.getUserData((res) => {
-			setData(res.transactions);
+			setRows(rowsData(res.transactions));
 		});
 	}, []);
 
-	var rows = () => {
+	useEffect(() => {
+		//Timeout to make sure backend is updated before fetching
+		const timer = setTimeout(() => {
+			StockFacade.getUserData((res) => {
+				setRows(rowsData(res.transactions));
+			});
+		}, 1000);
+		return () => clearTimeout(timer);
+	}, [props.reload]);
+
+	var rowsData = (data) => {
 		return data?.map((transaction) => {
-			console.log(transaction);
 			return {
 				id: transaction.id,
 				Symbol: transaction.stock.symbol,
@@ -57,7 +66,7 @@ const StockListComponent = () => {
 		<DataGrid
 			autoHeight
 			autoPageSize
-			rows={rows()}
+			rows={rows}
 			columns={columns}
 			pageSize={10}
 			rowsPerPageOptions={[10]}

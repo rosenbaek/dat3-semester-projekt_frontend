@@ -3,7 +3,7 @@ import { TextField, Box, Button, Paper } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import StockFacade from "../facades/StockFacade";
 
-export default function AddStockComponent() {
+export default function AddStockComponent(props) {
 	const initialTransaction = {
 		stockSymbol: "",
 		currencyCode: "",
@@ -23,6 +23,7 @@ export default function AddStockComponent() {
 		event.preventDefault();
 		StockFacade.addTransaction(transaction);
 		setTransaction(initialTransaction);
+		props.handleReload();
 	};
 
 	return (
