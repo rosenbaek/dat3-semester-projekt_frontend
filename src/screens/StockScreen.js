@@ -1,5 +1,6 @@
 import { styled } from "@mui/material/styles";
 import AddStockComponent from "../components/AddStockComponent";
+import StockListComponent from "../components/StockListComponent";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -21,6 +22,7 @@ const StockScreen = () => {
 	return (
 		<MainStyle>
 			<AddStockComponent />
+			<StockListComponent />
 		</MainStyle>
 	);
 };

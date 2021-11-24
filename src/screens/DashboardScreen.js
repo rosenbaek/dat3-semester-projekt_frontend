@@ -2,6 +2,7 @@ import { Table } from "react-bootstrap";
 import { styled } from "@mui/material/styles";
 import { Box, Grid, Container, Typography } from "@mui/material";
 import GroupView from "../components/GroupComponent";
+import StockListComponent from "../components/StockListComponent";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -50,7 +51,9 @@ const Home = (props) => {
 						<GroupView group={group} currency={"DKK"} />
 					</Grid>
 
-					<Grid item xs={12} md={6} lg={8}></Grid>
+					<Grid item xs={12} md={12} lg={12}>
+						<StockListComponent />
+					</Grid>
 
 					<Grid item xs={12} md={6} lg={4}></Grid>
 
