@@ -123,7 +123,7 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 				<Link underline="none" component={RouterLink} to="/">
 					<AccountStyle>
 						<Avatar
-							src={"/static/mock-images/avatars/avatar_default.jpg"}
+							src={"static/mock-images/avatars/avatar_default.jpg"}
 							alt="photoURL"
 						/>
 						<Box sx={{ ml: 2 }}>

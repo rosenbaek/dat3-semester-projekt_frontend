@@ -1,6 +1,7 @@
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { useEffect, useState } from "react";
 import StockFacade from "../facades/StockFacade";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const columns = [
 	{
@@ -27,6 +28,14 @@ const columns = [
 		field: "Currency",
 		flex: 0,
 		minWidth: 80,
+	},
+	{
+		field: "actions",
+		type: "actions",
+		width: 50,
+		getActions: (params) => [
+			<GridActionsCellItem icon={<DeleteIcon />} label="Delete" />,
+		],
 	},
 ];
 

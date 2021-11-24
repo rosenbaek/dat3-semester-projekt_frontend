@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { TextField, Box, Button, Paper } from "@mui/material";
+import { TextField, Box, Button, Paper, Grid, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import StockFacade from "../facades/StockFacade";
+import { height } from "@mui/system";
 
 export default function AddStockComponent(props) {
 	const initialTransaction = {
@@ -27,29 +28,38 @@ export default function AddStockComponent(props) {
 	};
 
 	return (
-		<>
-			<Paper>
-				<form onSubmit={handleSubmit}>
-					<Box
-						sx={{
-							"& > :not(style)": { m: 1, width: "25ch" },
-						}}
-					>
+		<form onSubmit={handleSubmit}>
+			<Paper
+				variant="outlined"
+				sx={{ padding: 2, marginBottom: 2, paddingTop: 1 }}
+			>
+				<Typography variant="h5" paddingBottom="5px" textAlign="left">
+					Add Stock
+				</Typography>
+				<Grid container spacing={2}>
+					<Grid item xs={6} md>
 						<TextField
+							fullWidth
 							id="stockSymbol"
 							label="Symbol"
 							value={transaction.stockSymbol}
 							onChange={handleChange}
 							required
 						/>
+					</Grid>
+					<Grid item xs={6} md>
 						<TextField
+							fullWidth
 							id="currencyCode"
 							label="Currency"
 							value={transaction.currencyCode}
 							onChange={handleChange}
 							required
 						/>
+					</Grid>
+					<Grid item xs={6} md>
 						<TextField
+							fullWidth
 							type="number"
 							id="units"
 							label="Units"
@@ -57,7 +67,10 @@ export default function AddStockComponent(props) {
 							onChange={handleChange}
 							required
 						/>
+					</Grid>
+					<Grid item xs={6} md>
 						<TextField
+							fullWidth
 							type="number"
 							id="boughtPrice"
 							label="Bought Price"
@@ -65,12 +78,20 @@ export default function AddStockComponent(props) {
 							onChange={handleChange}
 							required
 						/>
-						<Button type="submit" variant="contained" endIcon={<SendIcon />}>
+					</Grid>
+					<Grid item xs={12} md>
+						<Button
+							fullWidth
+							type="submit"
+							variant="contained"
+							endIcon={<SendIcon />}
+							sx={{ height: 56 }}
+						>
 							Send
 						</Button>
-					</Box>
-				</form>
+					</Grid>
+				</Grid>
 			</Paper>
-		</>
+		</form>
 	);
 }

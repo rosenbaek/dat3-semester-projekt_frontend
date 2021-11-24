@@ -70,14 +70,4 @@ const Home = (props) => {
 	);
 };
 
-const styles = {
-	title: {
-		margin: 16,
-		paddingVertical: 8,
-		textAlign: "center",
-		fontSize: 25,
-		fontWeight: "bold",
-	},
-};
-
 export default Home;
