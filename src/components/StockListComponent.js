@@ -25,11 +25,6 @@ const columns = [
 		minWidth: 100,
 	},
 	{
-		field: "Currency",
-		flex: 0,
-		minWidth: 80,
-	},
-	{
 		field: "actions",
 		type: "actions",
 		width: 50,
@@ -66,7 +61,6 @@ const StockListComponent = (props) => {
 				Name: transaction.stock.shortName,
 				Units: transaction.units,
 				BoughtPrice: transaction.boughtPrice,
-				Currency: transaction.currency.code,
 			};
 		});
 	};

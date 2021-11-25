@@ -1,11 +1,15 @@
 import { URL } from "../constants.js";
 
-function handleHttpErrors(res) {
+const handleHttpErrors = async (res) => {
 	if (!res.ok) {
-		return Promise.reject(res.json());
+		const response = await res.json();
+		if (response.message === "Token not valid (timed out?)") {
+			Facade.logout();
+		}
+		return Promise.reject(response);
 	}
-	return res.json();
-}
+	return await res.json();
+};
 
 const Facade = () => {
 	const login = (user, password) => {

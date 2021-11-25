@@ -7,7 +7,6 @@ import { height } from "@mui/system";
 export default function AddStockComponent(props) {
 	const initialTransaction = {
 		stockSymbol: "",
-		currencyCode: "",
 		units: "",
 		boughtPrice: "",
 	};
@@ -37,7 +36,7 @@ export default function AddStockComponent(props) {
 					Add Stock
 				</Typography>
 				<Grid container spacing={2}>
-					<Grid item xs={6} md>
+					<Grid item xs={4} md>
 						<TextField
 							fullWidth
 							id="stockSymbol"
@@ -47,17 +46,7 @@ export default function AddStockComponent(props) {
 							required
 						/>
 					</Grid>
-					<Grid item xs={6} md>
-						<TextField
-							fullWidth
-							id="currencyCode"
-							label="Currency"
-							value={transaction.currencyCode}
-							onChange={handleChange}
-							required
-						/>
-					</Grid>
-					<Grid item xs={6} md>
+					<Grid item xs={4} md>
 						<TextField
 							fullWidth
 							type="number"
@@ -68,7 +57,7 @@ export default function AddStockComponent(props) {
 							required
 						/>
 					</Grid>
-					<Grid item xs={6} md>
+					<Grid item xs={4} md>
 						<TextField
 							fullWidth
 							type="number"
