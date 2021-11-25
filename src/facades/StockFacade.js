@@ -1,12 +1,16 @@
 import { URL_STOCK_API } from "../constants.js";
 import Facade from "./Facade.js";
 
-function handleHttpErrors(res) {
+const handleHttpErrors = async (res) => {
 	if (!res.ok) {
-		return Promise.reject(res.json());
+		const response = await res.json();
+		if (response.message === "Token not valid (timed out?)") {
+			Facade.logout();
+		}
+		return Promise.reject(response);
 	}
-	return res.json();
-}
+	return await res.json();
+};
 
 const StockFacade = () => {
 	const addTransaction = (transaction) => {

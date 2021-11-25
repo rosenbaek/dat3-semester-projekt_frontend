@@ -28,9 +28,6 @@ const StockScreen = () => {
 		setReload(!reload);
 	};
 
-	useEffect(() => {
-		console.log("test: " + reload);
-	});
 	return (
 		<MainStyle>
 			<Box sx={{ marginLeft: 2, marginRight: 2 }}>

@@ -71,7 +71,7 @@ const StockListComponent = (props) => {
 		});
 	};
 
-	return (
+	return rows ? (
 		<DataGrid
 			autoHeight
 			autoPageSize
@@ -82,7 +82,7 @@ const StockListComponent = (props) => {
 			checkboxSelection
 			disableColumnMenu
 		/>
-	);
+	) : null;
 };
 
 export default StockListComponent;

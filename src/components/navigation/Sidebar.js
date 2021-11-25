@@ -142,6 +142,7 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 						if (user && menu.auth.some((item) => user.roles.includes(item))) {
 							return (
 								<ListItemButton
+									key={menu.titel}
 									component={RouterLink}
 									to={menu.path}
 									sx={{
