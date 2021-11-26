@@ -27,6 +27,7 @@ const StockFacade = () => {
 		return fetch(URL_STOCK_API, options)
 			.then(handleHttpErrors)
 			.then((res) => {
+				console.log("GetUserData API call ------->");
 				return callback(res);
 			});
 	};

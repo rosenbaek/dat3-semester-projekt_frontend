@@ -38,12 +38,6 @@ const StockListComponent = (props) => {
 	const [rows, setRows] = useState();
 
 	useEffect(() => {
-		StockFacade.getUserData((res) => {
-			setRows(rowsData(res.transactions));
-		});
-	}, []);
-
-	useEffect(() => {
 		//Timeout to make sure backend is updated before fetching
 		const timer = setTimeout(() => {
 			StockFacade.getUserData((res) => {
