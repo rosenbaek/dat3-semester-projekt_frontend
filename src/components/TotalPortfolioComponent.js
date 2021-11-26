@@ -16,7 +16,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
 
 const CHART_DATA = [
 	{
-		name: "Team B",
+		name: "Total Portfolio Value",
 		type: "area",
 		data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
 	},
@@ -37,9 +37,9 @@ export default function TotalPortfolioComponent({ value, currency }) {
 			type: "gradient",
 			gradient: {
 				type: "vertical",
-				shadeIntensity: 0,
-				opacityFrom: 0.4,
-				opacityTo: 0,
+
+				opacityFrom: 0.2,
+				opacityTo: 0.0,
 				stops: [0, 100],
 			},
 		},
@@ -67,6 +67,18 @@ export default function TotalPortfolioComponent({ value, currency }) {
 
 		colors: ["blue"],
 		xaxis: { type: "datetime" },
+		tooltip: {
+			shared: true,
+			intersect: false,
+			y: {
+				formatter: (y) => {
+					if (typeof y !== "undefined") {
+						return `${y.toFixed(0)} ${currency.toUpperCase()}`;
+					}
+					return y;
+				},
+			},
+		},
 	};
 
 	return (
@@ -80,7 +92,7 @@ export default function TotalPortfolioComponent({ value, currency }) {
 				</Grid>
 				<Grid item xs>
 					<Typography variant="h5" sx={{ float: "right", marginRight: 4 }}>
-						{value} {currency}
+						{value} {currency.toUpperCase()}
 					</Typography>
 				</Grid>
 			</Grid>
