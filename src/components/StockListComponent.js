@@ -15,14 +15,19 @@ const columns = [
 		minWidth: 140,
 	},
 	{
-		field: "Units",
-		flex: 1,
-		minWidth: 80,
-	},
-	{
 		field: "BoughtPrice",
 		flex: 1,
 		minWidth: 100,
+	},
+	{
+		field: "CurrentPrice",
+		flex: 1,
+		minWidth: 100,
+	},
+	{
+		field: "Units",
+		flex: 1,
+		minWidth: 80,
 	},
 	{
 		field: "actions",
@@ -55,6 +60,7 @@ const StockListComponent = (props) => {
 				Name: transaction.stock.shortName,
 				Units: transaction.units,
 				BoughtPrice: transaction.boughtPrice,
+				CurrentPrice: transaction.stock.regularMarketPrice
 			};
 		});
 	};
