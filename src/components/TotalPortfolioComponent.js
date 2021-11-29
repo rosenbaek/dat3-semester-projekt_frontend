@@ -1,6 +1,7 @@
 import { styled, useTheme } from "@mui/material/styles";
 import { Card, Typography, Box, Grid } from "@mui/material";
 import ReactApexChart from "react-apexcharts";
+import { useEffect, useState } from "react";
 
 const RootStyle = styled(Card)(({ theme }) => ({
 	boxShadow: "none",
@@ -14,16 +15,25 @@ const RootStyle = styled(Card)(({ theme }) => ({
 	borderColor: "lightgrey",
 }));
 
-const CHART_DATA = [
-	{
-		name: "Total Portfolio Value",
-		type: "area",
-		data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
-	},
-];
-
-export default function TotalPortfolioComponent({ value, currency }) {
+export default function TotalPortfolioComponent({ user, currency }) {
+	const [dates, setDates] = useState([]);
+	const [values, setValues] = useState([]);
 	const theme = useTheme();
+
+	const CHART_DATA = [
+		{
+			name: "Total Portfolio Value",
+			type: "area",
+			data: values,
+		},
+	];
+
+	useEffect(() => {
+		user.historicalPortFolioValue.map((value) => {
+			setDates((dates) => [...dates, value.date]);
+			setValues((values) => [...values, value.value.toFixed(2)]);
+		});
+	}, [user]);
 
 	const chartOptions = {
 		stroke: {
@@ -44,19 +54,7 @@ export default function TotalPortfolioComponent({ value, currency }) {
 			},
 		},
 
-		labels: [
-			"01/01/2003",
-			"02/01/2003",
-			"03/01/2003",
-			"04/01/2003",
-			"05/01/2003",
-			"06/01/2003",
-			"07/01/2003",
-			"08/01/2003",
-			"09/01/2003",
-			"10/01/2003",
-			"11/01/2003",
-		],
+		labels: dates,
 		chart: {
 			toolbar: { show: false },
 			zoom: { enabled: false },
@@ -66,14 +64,17 @@ export default function TotalPortfolioComponent({ value, currency }) {
 		},
 
 		colors: ["blue"],
-		xaxis: { type: "datetime" },
+		xaxis: {
+			type: "datetime",
+			tickPlacement: "on",
+		},
 		tooltip: {
 			shared: true,
 			intersect: false,
 			y: {
 				formatter: (y) => {
 					if (typeof y !== "undefined") {
-						return `${y.toFixed(0)} ${currency.toUpperCase()}`;
+						return `${y.toFixed(2)} ${currency.toUpperCase()}`;
 					}
 					return y;
 				},
@@ -92,12 +93,12 @@ export default function TotalPortfolioComponent({ value, currency }) {
 				</Grid>
 				<Grid item xs>
 					<Typography variant="h5" sx={{ float: "right", marginRight: 4 }}>
-						{value} {currency.toUpperCase()}
+						{user.totalPortfolioValue.toFixed(2)} {currency.toUpperCase()}
 					</Typography>
 				</Grid>
 			</Grid>
 
-			<Box sx={{ p: 3, pb: 1 }} dir="ltr">
+			<Box sx={{ p: 3, pb: 1 }}>
 				<ReactApexChart
 					type="line"
 					series={CHART_DATA}

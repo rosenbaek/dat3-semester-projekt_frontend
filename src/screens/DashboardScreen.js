@@ -59,7 +59,7 @@ const DashboardScreen = (props) => {
 
 						<Grid item xs={12} md={7} lg={7}>
 							<TotalPortfolioComponent
-								value={user.totalPortfolioValue.toFixed(2)}
+								user={user}
 								currency={user.defaultCurrency}
 							/>
 						</Grid>
