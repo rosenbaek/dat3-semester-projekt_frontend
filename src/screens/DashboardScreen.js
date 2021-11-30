@@ -5,6 +5,7 @@ import StockListComponent from "../components/StockListComponent";
 import TotalPortfolioComponent from "../components/TotalPortfolioComponent";
 import { useEffect, useState } from "react";
 import StockFacade from "../facades/StockFacade";
+import NewsComponent from "../components/NewsComponent";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -65,7 +66,7 @@ const DashboardScreen = (props) => {
 						</Grid>
 
 						<Grid item xs={12} md={5} lg={5}>
-							<GroupView group={group} currency={"DKK"} />
+							<NewsComponent news={user.news} />
 						</Grid>
 
 						<Grid item xs={12} md={12} lg={12}>
