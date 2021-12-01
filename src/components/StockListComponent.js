@@ -43,14 +43,10 @@ const StockListComponent = (props) => {
 	const [rows, setRows] = useState();
 
 	useEffect(() => {
-		//Timeout to make sure backend is updated before fetching
-		const timer = setTimeout(() => {
-			StockFacade.getUserData((res) => {
-				setRows(rowsData(res.transactions));
-			});
-		}, 1000);
-		return () => clearTimeout(timer);
-	}, [props.reload]);
+		if (props.data.length > 0) {
+			setRows(rowsData(props.data));
+		}
+	}, [props.data]);
 
 	var rowsData = (data) => {
 		return data?.map((transaction) => {
@@ -60,7 +56,7 @@ const StockListComponent = (props) => {
 				Name: transaction.stock.shortName,
 				Units: transaction.units,
 				BoughtPrice: transaction.boughtPrice,
-				CurrentPrice: transaction.stock.regularMarketPrice
+				CurrentPrice: transaction.stock.regularMarketPrice,
 			};
 		});
 	};

@@ -7,12 +7,12 @@ const RootStyle = styled(Card)(({ theme }) => ({
 	boxShadow: "none",
 	textAlign: "center",
 	borderRadius: 16,
-	padding: theme.spacing(5, 0),
+	padding: theme.spacing(3, 0),
 	color: "rgb(0, 82, 73)",
-	backgroundColor: "#F7FAFA",
+	backgroundColor: "#FFFFFF",
 	borderWidth: 1,
 	borderStyle: "solid",
-	borderColor: "lightgrey",
+	borderColor: "#E5E7EA",
 }));
 
 export default function TotalPortfolioComponent({ user, currency }) {

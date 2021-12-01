@@ -6,16 +6,17 @@ const NewsComponent = ({ news }) => {
 			sx={{
 				height: "100%",
 				borderRadius: 5,
-				backgroundColor: "#F7FAFA",
+				paddingBottom: 2,
+				backgroundColor: "#FFFFFF",
 				display: "flex",
 				flexDirection: "column",
 				justifyContent: "space-between",
 				borderWidth: 1,
 				borderStyle: "solid",
-				borderColor: "lightgrey",
+				borderColor: "#E5E7EA",
 			}}
 		>
-			<Typography variant="h5" sx={{ alignSelf: "flex-start", mx: 3, my: 1 }}>
+			<Typography variant="h5" sx={{ alignSelf: "flex-start", mx: 3, my: 3 }}>
 				News
 			</Typography>
 			{news.map((n) => {
@@ -23,20 +24,17 @@ const NewsComponent = ({ news }) => {
 					<Box
 						onClick={() => window.open(n.link)}
 						sx={{
-							backgroundColor: "white",
+							backgroundColor: "#FAFAFA",
 							flexDirection: "row",
 							display: "flex",
-							mx: 1,
+							mx: 3,
 							marginBottom: 1,
 							borderRadius: 3,
-							borderWidth: 1,
-							borderStyle: "solid",
-							borderColor: "lightgrey",
 						}}
 					>
 						<CardMedia
 							component="img"
-							sx={{ width: 100, height: 100, borderRadius: 3 }}
+							sx={{ width: 90, height: 90, borderRadius: 1 }}
 							image={n.urlImage}
 						/>
 						<Box sx={{ flex: 1, display: "flex", alignItems: "center", mx: 2 }}>

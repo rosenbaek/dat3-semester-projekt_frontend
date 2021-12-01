@@ -89,7 +89,7 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 		alignItems: "center",
 		padding: isOpenSidebar ? theme.spacing(2, 2) : theme.spacing(2, 0),
 		borderRadius: 10,
-		backgroundColor: isOpenSidebar ? theme.palette.grey[200] : null,
+		backgroundColor: isOpenSidebar ? "#ECEEF2" : null,
 	}));
 
 	useEffect(() => {
@@ -119,7 +119,7 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 				</Box>
 			</Box>
 
-			<Box sx={{ mb: 5, mx: 2 }}>
+			<Box sx={{ my: 5, mx: 2 }}>
 				<Link underline="none" component={RouterLink} to="/">
 					<AccountStyle>
 						<Avatar
@@ -159,15 +159,15 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 
 										"&:hover": {
 											color: "black",
-											backgroundColor: "#eeeeee",
+											backgroundColor: "#ECEEF2",
 										},
 										...(pathname === menu.path && {
-											color: "#00AB55",
+											color: "#5A6381",
 											fontWeight: "fontWeightMedium",
-											bgcolor: "rgba(0,171,85,0.1)",
+											bgcolor: "#E2E8FF",
 											"&:before": { display: "block" },
 											"&:hover": {
-												color: "#00AB55",
+												color: "#5A6381",
 												backgroundColor: "#eeeeee",
 											},
 										}),
@@ -175,9 +175,11 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 								>
 									<ListItemIcon
 										sx={{
-											...(pathname === menu.path && {
-												color: "#00AB55",
-											}),
+											...(pathname === menu.path
+												? {
+														color: "#5A6381",
+												  }
+												: { color: "#5A6381" }),
 										}}
 									>
 										{menu.icon}
@@ -196,14 +198,15 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 						mb: 2,
 						mx: isOpenSidebar ? 2 : 1,
 						p: 1,
-						bgcolor: "grey.200",
+						backgroundColor: "#E2E8FF",
 						borderRadius: 2,
 						position: "relative",
-						color: "black",
-						":hover": { bgcolor: "grey.300" },
+						color: "#5A6381",
+						verticalAlign: "center",
+						":hover": { bgcolor: "#5924D0", color: "white" },
 					}}
 				>
-					<Typography variant="h6">DKK</Typography>
+					DKK
 				</Box>
 			</Link>
 		</>
@@ -227,6 +230,9 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 			{/* hides below if lgDown or less */}
 			<HideComponent width="lgDown">
 				<Drawer
+					onMouseEnter={onCloseSidebar}
+					onMouseLeave={onCloseSidebar}
+					transitionDuration={{ enter: 500, exit: 1000 }}
 					open={isOpenSidebar}
 					variant="permanent"
 					onClose={onCloseSidebar}

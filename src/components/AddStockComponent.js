@@ -30,7 +30,7 @@ export default function AddStockComponent(props) {
 		<form onSubmit={handleSubmit}>
 			<Paper
 				variant="outlined"
-				sx={{ padding: 2, marginBottom: 2, paddingTop: 1 }}
+				sx={{ padding: 2, marginBottom: 2, paddingTop: 1, borderRadius: 3 }}
 			>
 				<Typography variant="h5" paddingBottom="5px" textAlign="left">
 					Add Stock

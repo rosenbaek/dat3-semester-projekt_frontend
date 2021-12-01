@@ -6,6 +6,7 @@ import TotalPortfolioComponent from "../components/TotalPortfolioComponent";
 import { useEffect, useState } from "react";
 import StockFacade from "../facades/StockFacade";
 import NewsComponent from "../components/NewsComponent";
+import AddIcon from "@mui/icons-material/Add";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -14,6 +15,8 @@ const MainStyle = styled("div")(({ theme }) => ({
 	flexGrow: 1,
 	overflow: "auto",
 	minHeight: "100%",
+	height: "100vh",
+	backgroundColor: "#ECEEF2",
 	paddingTop: APP_BAR_MOBILE + 24,
 	paddingBottom: theme.spacing(10),
 	[theme.breakpoints.up("lg")]: {
@@ -26,7 +29,7 @@ const MainStyle = styled("div")(({ theme }) => ({
 const DashboardScreen = (props) => {
 	const [user, setUser] = useState();
 	console.log(props);
-	const group = { name: "testGroup", value: 15220 };
+	const group = { name: "Enviromental", value: 15220.0 };
 
 	useEffect(() => {
 		StockFacade.getUserData((user) => {
@@ -41,23 +44,71 @@ const DashboardScreen = (props) => {
 		<MainStyle>
 			{user ? (
 				<Container maxWidth="xl">
-					<Box sx={{ pb: 5, textAlign: "left" }}>
+					<Box sx={{ py: 5, textAlign: "left" }}>
 						<Typography variant="h5">Hi, Welcome back</Typography>
 					</Box>
-					<Grid container spacing={3}>
-						<Grid item xs={6} sm={6} md={3}>
-							<GroupView group={group} currency={"DKK"} />
-						</Grid>
-						<Grid item xs={6} sm={6} md={3}>
-							<GroupView group={group} currency={"DKK"} />
-						</Grid>
-						<Grid item xs={6} sm={6} md={3}>
-							<GroupView group={group} currency={"DKK"} />
-						</Grid>
-						<Grid item xs={6} sm={6} md={3}>
-							<GroupView group={group} currency={"DKK"} />
-						</Grid>
+					<Typography variant="h5" sx={{ textAlign: "left" }}>
+						Groups
+					</Typography>
+					<Box sx={{ display: "flex", marginY: 3 }}>
+						<Box
+							onClick={() => alert("h")}
+							sx={{
+								backgroundColor: "red",
+								height: 150,
+								width: 200,
+								flexShrink: 0,
+								borderRadius: 4,
+								marginRight: 3,
+								display: "flex",
+								backgroundColor: "#5924D0",
+								display: "flex",
+								alignItems: "center",
+								justifyContent: "center",
+								cursor: "pointer",
+								":hover": {
+									backgroundColor: "#6E3CE4",
+								},
+							}}
+						>
+							<AddIcon sx={{ color: "white", fontSize: 50 }} />
+						</Box>
 
+						<Box
+							sx={{
+								display: "flex",
+								width: "100%",
+								overflowX: "scroll",
+								scrollbarWidth: "none",
+
+								borderRadius: 5,
+								"&::-webkit-scrollbar": {
+									display: "none",
+								},
+							}}
+						>
+							{user.groups.map((group) => {
+								return (
+									<GroupView
+										group={group}
+										currency={user.defaultCurrency}
+										user={user}
+									/>
+								);
+							})}
+							{user.groups.map((group) => {
+								return (
+									<GroupView
+										group={group}
+										currency={user.defaultCurrency}
+										user={user}
+									/>
+								);
+							})}
+						</Box>
+					</Box>
+
+					<Grid container spacing={3}>
 						<Grid item xs={12} md={7} lg={7}>
 							<TotalPortfolioComponent
 								user={user}
@@ -70,7 +121,7 @@ const DashboardScreen = (props) => {
 						</Grid>
 
 						<Grid item xs={12} md={12} lg={12}>
-							<StockListComponent />
+							<StockListComponent data={user.transactions} />
 						</Grid>
 
 						<Grid item xs={12} md={6} lg={4}></Grid>

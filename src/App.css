@@ -23,7 +23,10 @@
 	font-size: calc(10px + 2vmin);
 	color: white;
 }
-
+.MuiDataGrid-root.MuiDataGrid-autoHeight.css-1z4p5c-MuiDataGrid-root {
+	background-color: white;
+	border-radius: 15px;
+}
 .header {
 	margin: 20px;
 }
