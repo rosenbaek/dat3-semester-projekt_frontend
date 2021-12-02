@@ -41,12 +41,19 @@ const columns = [
 
 const StockListComponent = (props) => {
 	const [rows, setRows] = useState();
-
+	const [selectionModel, setSelectionModel] = useState([]);
 	useEffect(() => {
 		if (props.data.length > 0) {
 			setRows(rowsData(props.data));
+			if (props.group !== null) {
+				setSelectionModel(props.group);
+			}
 		}
 	}, [props.data]);
+
+	useEffect(() => {
+		console.log(selectionModel);
+	});
 
 	var rowsData = (data) => {
 		return data?.map((transaction) => {
@@ -70,6 +77,10 @@ const StockListComponent = (props) => {
 			pageSize={10}
 			rowsPerPageOptions={[10]}
 			checkboxSelection
+			onSelectionModelChange={(newSelectionModel) => {
+				setSelectionModel(newSelectionModel);
+			}}
+			selectionModel={selectionModel}
 			disableColumnMenu
 		/>
 	) : null;

@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import StockListComponent from "./StockListComponent";
 import AddStockComponent from "./AddStockComponent";
+import Button from "@mui/material/Button";
 
 const RootStyle = styled(Card)(({ theme }) => ({
 	boxShadow: "none",
@@ -92,8 +93,27 @@ export default function GroupView({ group, currency, user }) {
 					>
 						{group.name}
 					</Typography>
-					<AddStockComponent />
-					<StockListComponent data={data} />
+
+					<StockListComponent
+						data={user.transactions}
+						group={group.transactionIds}
+					/>
+					<Box
+						sx={{
+							display: "flex",
+
+							justifyContent: "flex-end",
+							marginTop: 3,
+						}}
+					>
+						<Button
+							variant="contained"
+							sx={{ display: "flex" }}
+							disabled={false} //Check if props.groups.length is != selectionModel to see if there has been any change
+						>
+							Save
+						</Button>
+					</Box>
 				</Box>
 			</Modal>
 		</RootStyle>
