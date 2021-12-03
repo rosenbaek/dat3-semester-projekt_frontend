@@ -27,9 +27,14 @@ const MainStyle = styled("div")(({ theme }) => ({
 const StockScreen = () => {
 	const [reload, setReload] = useState(true);
 	const [data, setData] = useState(true);
+	const [selectionModel, setSelectionModel] = useState([]);
 
 	const handleReload = () => {
 		setReload(!reload);
+	};
+
+	const setSelected = (newSelectionModel) => {
+		setSelectionModel(newSelectionModel);
 	};
 
 	useEffect(() => {
@@ -45,7 +50,13 @@ const StockScreen = () => {
 		<MainStyle>
 			<Box sx={{ marginLeft: 2, marginRight: 2 }}>
 				<AddStockComponent handleReload={handleReload} />
-				<StockListComponent reload={reload} data={data} group={false} />
+				<StockListComponent
+					reload={reload}
+					data={data}
+					group={false}
+					setSelected={setSelected}
+					selected={selectionModel}
+				/>
 			</Box>
 		</MainStyle>
 	);

@@ -65,8 +65,12 @@ const DashboardScreen = (props) => {
 		console.log(JSON.stringify(user));
 	});
 
-	const setSelected = (newSelectionModel) => {
+	const setSelectedInGroup = (newSelectionModel) => {
 		setGroup({ ...group, transactionIds: newSelectionModel });
+	};
+
+	const setSelected = (newSelectionModel) => {
+		setSelectionModel(newSelectionModel);
 	};
 
 	const handleChange = (event) => {
@@ -172,7 +176,12 @@ const DashboardScreen = (props) => {
 						</Grid>
 
 						<Grid item xs={12} md={12} lg={12}>
-							<StockListComponent data={user.transactions} group={false} />
+							<StockListComponent
+								data={user.transactions}
+								group={false}
+								setSelected={setSelected}
+								selected={selectionModel}
+							/>
 						</Grid>
 
 						<Grid item xs={12} md={6} lg={4}></Grid>
@@ -211,7 +220,7 @@ const DashboardScreen = (props) => {
 
 							<StockListComponent
 								data={user.transactions}
-								setSelected={setSelected}
+								setSelected={setSelectedInGroup}
 								group={true}
 								selected={group.transactionIds}
 							/>
