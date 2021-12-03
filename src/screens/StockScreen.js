@@ -45,7 +45,7 @@ const StockScreen = () => {
 		<MainStyle>
 			<Box sx={{ marginLeft: 2, marginRight: 2 }}>
 				<AddStockComponent handleReload={handleReload} />
-				<StockListComponent reload={reload} data={data} />
+				<StockListComponent reload={reload} data={data} group={false} />
 			</Box>
 		</MainStyle>
 	);

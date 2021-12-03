@@ -1,10 +1,13 @@
 import { styled, useTheme } from "@mui/material/styles";
-import { Card, Typography, Modal } from "@mui/material";
+import { Card, Typography, Modal, TextField, IconButton } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import StockListComponent from "./StockListComponent";
 import AddStockComponent from "./AddStockComponent";
 import Button from "@mui/material/Button";
+import { propTypes } from "react-bootstrap/esm/Image";
+import DeleteIcon from "@mui/icons-material/Delete";
+import StockFacade from "../facades/StockFacade";
 
 const RootStyle = styled(Card)(({ theme }) => ({
 	boxShadow: "none",
@@ -39,19 +42,74 @@ const style = {
 	p: 2,
 };
 
-export default function GroupView({ group, currency, user }) {
+export default function GroupView({
+	group: groupInput,
+	currency,
+	user,
+	reload,
+}) {
 	const [open, setOpen] = useState(false);
 	const [data, setData] = useState([]);
+
+	const [group, setGroup] = useState(groupInput);
+
+	const [groupName, setGroupName] = useState(groupInput.name);
+	const [selectionModel, setSelectionModel] = useState(
+		groupInput.transactionIds
+	);
+
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
+
+	const setSelected = (newSelectionModel) => {
+		setGroup({ ...group, transactionIds: newSelectionModel });
+	};
 
 	const theme = useTheme();
 
 	useEffect(() => {
 		setData(
-			user.transactions.filter((t) => group.transactionIds.includes(t.id))
+			user.transactions.filter((t) => groupInput.transactionIds.includes(t.id))
 		);
 	}, [user]);
+
+	useEffect(() => {
+		console.log(groupInput.name);
+		console.log(groupName);
+	});
+
+	const handleChange = (event) => {
+		const target = event.target;
+		const id = target.id;
+		const value = target.value;
+		setGroup({ ...group, [id]: value });
+	};
+	const handleSave = () => {
+		StockFacade.addEditGroup(group, (response) => {
+			console.log(JSON.stringify(response));
+			reload();
+			handleClose();
+		});
+	};
+
+	const handleDelete = () => {
+		StockFacade.deleteGroup(group, (response) => {
+			console.log(JSON.stringify(response));
+			reload();
+			handleClose();
+		});
+	};
+	const saveNeeded = () => {
+		if (
+			JSON.stringify(groupInput.transactionIds) ==
+				JSON.stringify(group.transactionIds) &&
+			group.name === groupInput.name
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	};
 	return (
 		<RootStyle theme={theme}>
 			<Box onClick={handleOpen}>
@@ -72,9 +130,10 @@ export default function GroupView({ group, currency, user }) {
 				>
 					+1.32%
 				</Box>
-				<Typography variant="h6">{group.name}</Typography>
+
+				<Typography variant="h6">{groupInput.name}</Typography>
 				<Typography>
-					{group.value.toFixed(2)}
+					{groupInput.value.toFixed(2)}
 					{currency.toUpperCase()}
 				</Typography>
 			</Box>
@@ -85,18 +144,36 @@ export default function GroupView({ group, currency, user }) {
 				aria-describedby="modal-modal-description"
 			>
 				<Box sx={style}>
-					<Typography
-						id="modal-modal-title"
-						variant="h4"
-						component="h2"
-						sx={{ py: 2 }}
+					<Box
+						sx={{
+							display: "flex",
+							justifyContent: "space-between",
+							alignItems: "center",
+						}}
 					>
-						{group.name}
-					</Typography>
+						<TextField
+							id="name"
+							label="Name"
+							value={group.name}
+							onChange={handleChange}
+							sx={{ marginBottom: 2 }}
+						/>
+						<Button
+							variant="contained"
+							sx={{ display: "flex", marginBottom: 2, height: 40 }}
+							color="error"
+							onClick={handleDelete}
+							//Check if props.groups.length is != selectionModel to see if there has been any change
+						>
+							Delete Group
+						</Button>
+					</Box>
 
 					<StockListComponent
 						data={user.transactions}
-						group={group.transactionIds}
+						setSelected={setSelected}
+						group={true}
+						selected={group.transactionIds}
 					/>
 					<Box
 						sx={{
@@ -108,8 +185,9 @@ export default function GroupView({ group, currency, user }) {
 					>
 						<Button
 							variant="contained"
-							sx={{ display: "flex" }}
-							disabled={false} //Check if props.groups.length is != selectionModel to see if there has been any change
+							sx={{ display: "flex", height: 40 }}
+							disabled={saveNeeded()} //Check if props.groups.length is != selectionModel to see if there has been any change
+							onClick={handleSave}
 						>
 							Save
 						</Button>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import StockFacade from "../facades/StockFacade";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-const columns = [
+var columns = [
 	{
 		field: "Symbol",
 		flex: 1,
@@ -29,19 +29,13 @@ const columns = [
 		flex: 1,
 		minWidth: 80,
 	},
-	{
-		field: "actions",
-		type: "actions",
-		width: 50,
-		getActions: (params) => [
-			<GridActionsCellItem icon={<DeleteIcon />} label="Delete" />,
-		],
-	},
 ];
 
 const StockListComponent = (props) => {
 	const [rows, setRows] = useState();
 	const [selectionModel, setSelectionModel] = useState([]);
+	const [columnsData, setColumnsData] = useState(columns);
+
 	useEffect(() => {
 		if (props.data.length > 0) {
 			setRows(rowsData(props.data));
@@ -52,8 +46,21 @@ const StockListComponent = (props) => {
 	}, [props.data]);
 
 	useEffect(() => {
-		console.log(selectionModel);
-	});
+		if (props.group === false) {
+			console.log(props.group);
+			setColumnsData([
+				...columnsData,
+				{
+					field: "actions",
+					type: "actions",
+					width: 0,
+					getActions: (params) => [
+						<GridActionsCellItem icon={<DeleteIcon />} label="Delete" />,
+					],
+				},
+			]);
+		}
+	}, [props.group]);
 
 	var rowsData = (data) => {
 		return data?.map((transaction) => {
@@ -73,14 +80,14 @@ const StockListComponent = (props) => {
 			autoHeight
 			autoPageSize
 			rows={rows}
-			columns={columns}
+			columns={columnsData}
 			pageSize={10}
 			rowsPerPageOptions={[10]}
 			checkboxSelection
 			onSelectionModelChange={(newSelectionModel) => {
-				setSelectionModel(newSelectionModel);
+				props.setSelected(newSelectionModel);
 			}}
-			selectionModel={selectionModel}
+			selectionModel={props.selected}
 			disableColumnMenu
 		/>
 	) : null;

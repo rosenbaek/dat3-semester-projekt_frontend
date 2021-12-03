@@ -22,6 +22,26 @@ const StockFacade = () => {
 			});
 	};
 
+	const addEditGroup = (group, callback) => {
+		const options = Facade.makeOptions("POST", true, group);
+		return fetch(URL_STOCK_API + "/group", options)
+			.then(handleHttpErrors)
+			.then((res) => {
+				console.log(JSON.stringify(res));
+				return callback(res);
+			});
+	};
+
+	const deleteGroup = (group, callback) => {
+		const options = Facade.makeOptions("DELETE", true);
+		return fetch(URL_STOCK_API + "/group/" + group.id, options)
+			.then(handleHttpErrors)
+			.then((res) => {
+				console.log(JSON.stringify(res));
+				return callback(res);
+			});
+	};
+
 	const getUserData = (callback) => {
 		const options = Facade.makeOptions("GET", true);
 		return fetch(URL_STOCK_API, options)
@@ -35,6 +55,8 @@ const StockFacade = () => {
 	return {
 		addTransaction,
 		getUserData,
+		addEditGroup,
+		deleteGroup,
 	};
 };
 
