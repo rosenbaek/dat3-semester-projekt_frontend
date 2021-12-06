@@ -61,7 +61,7 @@ export default function Popover(props) {
 				}}
 			>
 				<Avatar
-					src={"static/mock-images/avatars/avatar_default2.jpg"}
+					src={"static/mock-images/avatars/avatar_default1.jpg"}
 					alt="photoURL"
 				/>
 			</IconButton>
