@@ -6,15 +6,14 @@ import { styled } from "@mui/material/styles";
 import {
 	Box,
 	Link,
-	Typography,
 	List,
 	Drawer as Drawer1,
-	Avatar,
 	useTheme,
 	ListItemButton,
 	ListItemText,
 	ListItemIcon,
 	IconButton,
+	Typography,
 } from "@mui/material";
 import MuiDrawer from "@mui/material/Drawer";
 import HideComponent from "../utility/HideComponent";
@@ -84,14 +83,6 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 		},
 	}));
 
-	const AccountStyle = styled("div")(({ theme }) => ({
-		display: "flex",
-		alignItems: "center",
-		padding: isOpenSidebar ? theme.spacing(2, 2) : theme.spacing(2, 0),
-		borderRadius: 10,
-		backgroundColor: isOpenSidebar ? "#ECEEF2" : null,
-	}));
-
 	useEffect(() => {
 		if (isOpenSidebar) {
 			onCloseSidebar();
@@ -101,7 +92,14 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 
 	const renderContent = (
 		<>
-			<Box sx={{ py: 2 }}>
+			<Box
+				sx={{
+					height: 92,
+					display: "flex",
+					alignItems: "center",
+					justifyContent: "center",
+				}}
+			>
 				<Box onClick={onCloseSidebar}>
 					<IconButton
 						onClick={onCloseSidebar}
@@ -110,32 +108,21 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 								? {
 										float: "right",
 										marginRight: 2,
+										color: "#A09EB8",
 								  }
-								: {}
+								: { color: "#A09EB8" }
 						}
 					>
-						{isOpenSidebar ? <ChevronLeftIcon /> : <Icon icon={menu2Fill} />}
+						{isOpenSidebar ? (
+							<Typography variant="h4">Stock Monitor</Typography>
+						) : (
+							<Icon icon={menu2Fill} />
+						)}
 					</IconButton>
 				</Box>
 			</Box>
 
-			<Box sx={{ my: 5, mx: 2 }}>
-				<Link underline="none" component={RouterLink} to="/">
-					<AccountStyle>
-						<Avatar
-							src={"static/mock-images/avatars/avatar_default.jpg"}
-							alt="photoURL"
-						/>
-						<Box sx={{ ml: 2 }}>
-							<Typography
-								sx={{ color: "text.primary", textTransform: "capitalize" }}
-							>
-								{user ? user.username : "not logged in"}
-							</Typography>
-						</Box>
-					</AccountStyle>
-				</Link>
-			</Box>
+			<Box sx={{ display: "flex", flex: 1 }}></Box>
 			<Box>
 				<List disablePadding>
 					{MenuValues.map((menu) => {
@@ -147,9 +134,9 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 									to={menu.path}
 									sx={{
 										height: 48,
-										color: "grey",
+										color: "#A09EB8",
 										mx: 2,
-										mb: 1,
+										mb: 2,
 										borderRadius: 3,
 										textTransform: "capitalize",
 										paddingLeft: isOpenSidebar
@@ -158,17 +145,17 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 										paddingRight: theme.spacing(2.5),
 
 										"&:hover": {
-											color: "black",
-											backgroundColor: "#ECEEF2",
+											color: "#A09EB8",
+											backgroundColor: "#F4F5F9",
 										},
 										...(pathname === menu.path && {
-											color: "#5A6381",
+											color: "#A09EB8",
 											fontWeight: "fontWeightMedium",
-											bgcolor: "#E2E8FF",
+											bgcolor: "#F4F5F9",
 											"&:before": { display: "block" },
 											"&:hover": {
-												color: "#5A6381",
-												backgroundColor: "#eeeeee",
+												color: "#A09EB8",
+												backgroundColor: "#F4F5F9",
 											},
 										}),
 									}}
@@ -177,9 +164,9 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 										sx={{
 											...(pathname === menu.path
 												? {
-														color: "#5A6381",
+														color: "#A09EB8",
 												  }
-												: { color: "#5A6381" }),
+												: { color: "#A09EB8" }),
 										}}
 									>
 										{menu.icon}
@@ -193,6 +180,7 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 					})}
 				</List>
 			</Box>
+
 			<Box sx={{ flexGrow: 1 }} />
 			<Link underline="none" component={RouterLink} to="#">
 				<Box
@@ -200,12 +188,12 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 						mb: 2,
 						mx: isOpenSidebar ? 2 : 1,
 						p: 1,
-						backgroundColor: "#E2E8FF",
+						backgroundColor: "#F4F5F9",
 						borderRadius: 2,
 						position: "relative",
-						color: "#5A6381",
+						color: "#A09EB8",
 						verticalAlign: "center",
-						":hover": { bgcolor: "#5924D0", color: "white" },
+						":hover": { bgcolor: "#EFEFF2" },
 					}}
 				>
 					DKK

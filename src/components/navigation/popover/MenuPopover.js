@@ -25,9 +25,10 @@ export default function MenuPopover({ children, sx, ...other }) {
 					ml: 0.5,
 					overflow: "inherit",
 					boxShadow:
-						"0 0 2px 0 rgba(145, 158, 171, 0.24),0 20px 40px -4px rgba(145, 158, 171, 0.24)",
+						"0 0 40px 0 rgba(145, 158, 171, 0.3),0px 20px 40px -4px rgba(145, 158, 171, 0.3)",
 					border: `solid 1px rgba(145, 158, 171, 0.08)`,
 					width: 200,
+					borderRadius: 4,
 					...sx,
 				},
 			}}

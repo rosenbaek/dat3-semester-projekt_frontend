@@ -61,7 +61,7 @@ export default function Popover(props) {
 				}}
 			>
 				<Avatar
-					src={"static/mock-images/avatars/avatar_default.jpg"}
+					src={"static/mock-images/avatars/avatar_default2.jpg"}
 					alt="photoURL"
 				/>
 			</IconButton>
@@ -72,17 +72,16 @@ export default function Popover(props) {
 				anchorEl={anchorRef.current}
 				sx={{ width: 220 }}
 			>
-				<Box sx={{ my: 1.5, px: 2.5 }}>
+				<Box sx={{ my: 1.5, px: 2.5, color: "#A09EB8" }}>
 					<Typography
-						variant="subtitle1"
-						sx={{ textTransform: "capitalize" }}
+						sx={{ textTransform: "capitalize", fontWeight: 600 }}
 						noWrap
 					>
 						{user && user.username}
 					</Typography>
 					<Typography
 						variant="body2"
-						sx={{ color: "text.secondary", textTransform: "capitalize" }}
+						sx={{ textTransform: "capitalize" }}
 						noWrap
 					>
 						{user && user.roles.map((role) => role)}
@@ -92,6 +91,7 @@ export default function Popover(props) {
 				<Divider
 					sx={{
 						my: 1,
+						color: "#A09EB8",
 					}}
 				/>
 
@@ -105,9 +105,10 @@ export default function Popover(props) {
 							typography: "body2",
 							py: 1,
 							mx: 0.5,
+							color: "#A09EB8",
 							"&:hover": {
-								color: "black",
-								backgroundColor: "#eeeeee",
+								color: "#A09EB8",
+								backgroundColor: "#F4F5F9",
 								borderRadius: 3,
 								mx: 0.5,
 							},
@@ -133,6 +134,14 @@ export default function Popover(props) {
 						color="inherit"
 						variant="outlined"
 						onClick={handleLogout}
+						sx={{
+							borderColor: "#A09EB8",
+							color: "#A09EB8",
+							"&:hover": {
+								borderColor: "#A09EB8",
+								backgroundColor: "#F4F5F9",
+							},
+						}}
 					>
 						Logout
 					</Button>

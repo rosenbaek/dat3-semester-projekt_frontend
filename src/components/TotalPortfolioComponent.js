@@ -1,5 +1,5 @@
 import { styled, useTheme } from "@mui/material/styles";
-import { Card, Typography, Box, Grid } from "@mui/material";
+import { Card, Typography, Box } from "@mui/material";
 import ReactApexChart from "react-apexcharts";
 import { useEffect, useState } from "react";
 
@@ -83,21 +83,47 @@ export default function TotalPortfolioComponent({ user, currency }) {
 		},
 	};
 
+	const calcPercent = () => {
+		const totalBoughtPrice = user.totalPortfolioValue - user.profLoss;
+		if (totalBoughtPrice === 0.0) {
+			return 0.0;
+		}
+		return (user.profLoss / totalBoughtPrice) * 100;
+	};
+
 	return (
 		<RootStyle theme={theme}>
-			<Grid container spacing={1}>
+			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{/* on small screens(phones), this item takes up 5 units. On medium-sized screens(tablets), take up 8 units. If an item is too large, it will go to the next line. */}
-				<Grid item xs>
-					<Typography variant="h5" sx={{ float: "left", marginLeft: 4 }}>
-						Total Porfolio value
-					</Typography>
-				</Grid>
-				<Grid item xs>
-					<Typography variant="h5" sx={{ float: "right", marginRight: 4 }}>
+				<Box sx={{ flex: 7 }}>
+					<Box sx={{ display: "flex", alignItems: "center" }}>
+						<Box>
+							<Typography variant="h5" sx={{ marginLeft: 4, color: "#282357" }}>
+								Total Porfolio value
+							</Typography>
+						</Box>
+
+						<Box
+							sx={{
+								padding: 1.2,
+								borderRadius: 3.5,
+								marginLeft: 2,
+								backgroundColor: calcPercent() < 0 ? "#F74769" : "#0EC477",
+								fontSize: 14,
+								color: "white",
+								fontWeight: 600,
+							}}
+						>
+							{calcPercent().toFixed(2)} %
+						</Box>
+					</Box>
+				</Box>
+				<Box sx={{ flex: 3 }}>
+					<Typography variant="h6" sx={{ float: "right", marginRight: 4 }}>
 						{user.totalPortfolioValue.toFixed(2)} {currency.toUpperCase()}
 					</Typography>
-				</Grid>
-			</Grid>
+				</Box>
+			</Box>
 
 			<Box sx={{ p: 3, pb: 1 }}>
 				<ReactApexChart

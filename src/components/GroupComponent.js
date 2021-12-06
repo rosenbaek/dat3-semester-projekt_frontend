@@ -14,7 +14,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
 	width: 200,
 
 	marginRight: 25,
-	padding: theme.spacing(1.5, 1.5),
+	padding: theme.spacing(2, 2),
 	color: "rgb(0, 82, 73)",
 	backgroundColor: "#FFFFFF",
 	flexShrink: 0,
@@ -88,31 +88,38 @@ export default function GroupView({
 			return false;
 		}
 	};
+
+	const calcPercent = () => {
+		const totalBoughtPrice = groupInput.value - groupInput.profLoss;
+		if (totalBoughtPrice === 0.0) {
+			return 0.0;
+		}
+		return (groupInput.profLoss / totalBoughtPrice) * 100;
+	};
 	return (
 		<RootStyle theme={theme}>
 			<Box onClick={handleOpen}>
-				<Box
-					sx={{
-						height: 35,
-						width: 65,
-						borderRadius: 3.5,
-						marginBottom: 2,
-						backgroundColor: "red",
-						display: "flex",
-						alignItems: "center",
-						justifyContent: "center",
-						fontSize: 14,
-						color: "white",
-						fontWeight: 600,
-					}}
-				>
-					+1.32%
+				<Box sx={{ display: "flex", marginBottom: 2 }}>
+					<Box
+						sx={{
+							padding: 1.2,
+							borderRadius: 3.5,
+
+							backgroundColor: calcPercent() < 0 ? "#F74769" : "#0EC477",
+							fontSize: 14,
+							color: "white",
+							fontWeight: 600,
+						}}
+					>
+						{calcPercent().toFixed(2)} %
+					</Box>
 				</Box>
 
-				<Typography variant="h6">{groupInput.name}</Typography>
+				<Typography variant="h6" sx={{ textTransform: "capitalize" }}>
+					{groupInput.name}
+				</Typography>
 				<Typography>
-					{groupInput.value.toFixed(2)}
-					{currency.toUpperCase()}
+					{groupInput.value.toFixed(2)} {currency.toUpperCase()}
 				</Typography>
 			</Box>
 			<Modal

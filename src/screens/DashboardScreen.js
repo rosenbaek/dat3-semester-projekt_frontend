@@ -108,7 +108,9 @@ const DashboardScreen = (props) => {
 			{user ? (
 				<Container maxWidth="xl">
 					<Box sx={{ py: 5, textAlign: "left" }}>
-						<Typography variant="h5">Hi, Welcome back</Typography>
+						<Typography variant="h5" sx={{ textTransform: "capitalize" }}>
+							Hi, Welcome back {user.username}
+						</Typography>
 					</Box>
 					<Typography variant="h5" sx={{ textAlign: "left" }}>
 						Groups
@@ -123,12 +125,12 @@ const DashboardScreen = (props) => {
 								borderRadius: 4,
 								marginRight: 3,
 								display: "flex",
-								backgroundColor: "#5924D0",
+								backgroundColor: "#4B4BAC",
 								alignItems: "center",
 								justifyContent: "center",
 								cursor: "pointer",
 								":hover": {
-									backgroundColor: "#6E3CE4",
+									backgroundColor: "#44449B",
 								},
 							}}
 						>
