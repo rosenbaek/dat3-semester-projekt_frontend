@@ -187,6 +187,8 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 									<ListItemText disableTypography primary={menu.titel} />
 								</ListItemButton>
 							);
+						} else {
+							return null;
 						}
 					})}
 				</List>

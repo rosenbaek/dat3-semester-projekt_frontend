@@ -29,7 +29,8 @@ export default function TotalPortfolioComponent({ user, currency }) {
 	];
 
 	useEffect(() => {
-		user.historicalPortFolioValue.map((value) => {
+		setValues([]);
+		user.historicalPortFolioValue.forEach((value) => {
 			setDates((dates) => [...dates, value.date]);
 			setValues((values) => [...values, value.value.toFixed(2)]);
 		});

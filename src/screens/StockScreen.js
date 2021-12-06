@@ -2,7 +2,7 @@ import { styled } from "@mui/material/styles";
 import { useEffect, useState } from "react";
 import AddStockComponent from "../components/AddStockComponent";
 import StockListComponent from "../components/StockListComponent";
-import { TextField, Box, Button, Paper, Grid } from "@mui/material";
+import { Box } from "@mui/material";
 import StockFacade from "../facades/StockFacade";
 
 const APP_BAR_MOBILE = 64;
@@ -25,12 +25,16 @@ const MainStyle = styled("div")(({ theme }) => ({
 }));
 
 const StockScreen = () => {
-	const [reload, setReload] = useState(true);
 	const [data, setData] = useState(true);
 	const [selectionModel, setSelectionModel] = useState([]);
 
 	const handleReload = () => {
-		setReload(!reload);
+		const timer = setTimeout(() => {
+			StockFacade.getUserData((res) => {
+				setData(res.transactions);
+			});
+		}, 500);
+		return () => clearTimeout(timer);
 	};
 
 	const setSelected = (newSelectionModel) => {
@@ -45,17 +49,17 @@ const StockScreen = () => {
 			});
 		}, 500);
 		return () => clearTimeout(timer);
-	}, [reload]);
+	}, []);
 	return (
 		<MainStyle>
 			<Box sx={{ marginLeft: 2, marginRight: 2 }}>
 				<AddStockComponent handleReload={handleReload} />
 				<StockListComponent
-					reload={reload}
 					data={data}
 					group={false}
 					setSelected={setSelected}
 					selected={selectionModel}
+					reload={handleReload}
 				/>
 			</Box>
 		</MainStyle>

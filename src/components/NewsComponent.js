@@ -22,6 +22,7 @@ const NewsComponent = ({ news }) => {
 			{news.map((n) => {
 				return (
 					<Box
+						key={n.title}
 						onClick={() => window.open(n.link)}
 						sx={{
 							backgroundColor: "#FAFAFA",

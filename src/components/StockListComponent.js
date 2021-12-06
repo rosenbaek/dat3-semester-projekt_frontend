@@ -31,23 +31,23 @@ var columns = [
 	},
 ];
 
-const StockListComponent = (props) => {
+const StockListComponent = ({ data, group, reload, setSelected, selected }) => {
 	const [rows, setRows] = useState();
-	const [selectionModel, setSelectionModel] = useState([]);
 	const [columnsData, setColumnsData] = useState(columns);
 
 	useEffect(() => {
-		if (props.data.length > 0) {
-			setRows(rowsData(props.data));
-			if (props.group !== null) {
-				setSelectionModel(props.group);
-			}
+		if (data.length > 0) {
+			setRows(rowsData(data));
 		}
-	}, [props.data]);
+	}, [data]);
 
+	const handleDeleteInline = (params) => {
+		StockFacade.deleteTransactions([params.id], (res) => {
+			reload();
+		});
+	};
 	useEffect(() => {
-		if (props.group === false) {
-			console.log(props.group);
+		if (group === false) {
 			setColumnsData([
 				...columnsData,
 				{
@@ -55,12 +55,17 @@ const StockListComponent = (props) => {
 					type: "actions",
 					width: 0,
 					getActions: (params) => [
-						<GridActionsCellItem icon={<DeleteIcon />} label="Delete" />,
+						<GridActionsCellItem
+							icon={<DeleteIcon />}
+							onClick={() => handleDeleteInline(params)}
+							label="Delete"
+						/>,
 					],
 				},
 			]);
 		}
-	}, [props.group]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [group]);
 
 	var rowsData = (data) => {
 		return data?.map((transaction) => {
@@ -85,9 +90,9 @@ const StockListComponent = (props) => {
 			rowsPerPageOptions={[10]}
 			checkboxSelection
 			onSelectionModelChange={(newSelectionModel) => {
-				props.setSelected(newSelectionModel);
+				setSelected(newSelectionModel);
 			}}
-			selectionModel={props.selected}
+			selectionModel={selected}
 			disableColumnMenu
 		/>
 	) : null;

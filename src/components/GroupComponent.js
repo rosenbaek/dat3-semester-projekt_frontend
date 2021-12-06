@@ -1,12 +1,9 @@
 import { styled, useTheme } from "@mui/material/styles";
-import { Card, Typography, Modal, TextField, IconButton } from "@mui/material";
+import { Card, Typography, Modal, TextField } from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StockListComponent from "./StockListComponent";
-import AddStockComponent from "./AddStockComponent";
 import Button from "@mui/material/Button";
-import { propTypes } from "react-bootstrap/esm/Image";
-import DeleteIcon from "@mui/icons-material/Delete";
 import StockFacade from "../facades/StockFacade";
 
 const RootStyle = styled(Card)(({ theme }) => ({
@@ -49,14 +46,7 @@ export default function GroupView({
 	reload,
 }) {
 	const [open, setOpen] = useState(false);
-	const [data, setData] = useState([]);
-
 	const [group, setGroup] = useState(groupInput);
-
-	const [groupName, setGroupName] = useState(groupInput.name);
-	const [selectionModel, setSelectionModel] = useState(
-		groupInput.transactionIds
-	);
 
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
@@ -67,17 +57,6 @@ export default function GroupView({
 
 	const theme = useTheme();
 
-	useEffect(() => {
-		setData(
-			user.transactions.filter((t) => groupInput.transactionIds.includes(t.id))
-		);
-	}, [user]);
-
-	useEffect(() => {
-		console.log(groupInput.name);
-		console.log(groupName);
-	});
-
 	const handleChange = (event) => {
 		const target = event.target;
 		const id = target.id;
@@ -86,7 +65,6 @@ export default function GroupView({
 	};
 	const handleSave = () => {
 		StockFacade.addEditGroup(group, (response) => {
-			console.log(JSON.stringify(response));
 			reload();
 			handleClose();
 		});
@@ -101,7 +79,7 @@ export default function GroupView({
 	};
 	const saveNeeded = () => {
 		if (
-			JSON.stringify(groupInput.transactionIds) ==
+			JSON.stringify(groupInput.transactionIds) ===
 				JSON.stringify(group.transactionIds) &&
 			group.name === groupInput.name
 		) {

@@ -50,20 +50,14 @@ const style = {
 const DashboardScreen = (props) => {
 	const [user, setUser] = useState();
 	const [open, setOpen] = useState(false);
-	const [reload, setReload] = useState(false);
 	const [group, setGroup] = useState({ name: "", transactionIds: [] });
-	const [groupName, setGroupName] = useState("");
 	const [selectionModel, setSelectionModel] = useState([]);
 
 	useEffect(() => {
 		StockFacade.getUserData((user) => {
 			setUser(user);
 		});
-	}, [reload]);
-
-	useEffect(() => {
-		console.log(JSON.stringify(user));
-	});
+	}, []);
 
 	const setSelectedInGroup = (newSelectionModel) => {
 		setGroup({ ...group, transactionIds: newSelectionModel });
@@ -85,7 +79,14 @@ const DashboardScreen = (props) => {
 		setGroup({ name: "", transactionIds: [] });
 	};
 
-	const handleReload = () => setReload(!reload);
+	const handleReload = () => {
+		const timer = setTimeout(() => {
+			StockFacade.getUserData((user) => {
+				setUser(user);
+			});
+		}, 300);
+		return () => clearTimeout(timer);
+	};
 
 	const handleSave = () => {
 		StockFacade.addEditGroup(group, (response) => {
@@ -116,7 +117,6 @@ const DashboardScreen = (props) => {
 						<Box
 							onClick={handleOpen}
 							sx={{
-								backgroundColor: "red",
 								height: 150,
 								width: 200,
 								flexShrink: 0,
@@ -124,7 +124,6 @@ const DashboardScreen = (props) => {
 								marginRight: 3,
 								display: "flex",
 								backgroundColor: "#5924D0",
-								display: "flex",
 								alignItems: "center",
 								justifyContent: "center",
 								cursor: "pointer",
@@ -181,6 +180,7 @@ const DashboardScreen = (props) => {
 								group={false}
 								setSelected={setSelected}
 								selected={selectionModel}
+								reload={handleReload}
 							/>
 						</Grid>
 

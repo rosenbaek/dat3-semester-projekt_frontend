@@ -1,4 +1,3 @@
-import { Table } from "react-bootstrap";
 import { styled } from "@mui/material/styles";
 
 const APP_BAR_MOBILE = 64;

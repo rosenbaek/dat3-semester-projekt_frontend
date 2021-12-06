@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { TextField, Box, Button, Paper, Grid, Typography } from "@mui/material";
+import { TextField, Button, Paper, Grid, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import StockFacade from "../facades/StockFacade";
-import { height } from "@mui/system";
 
 export default function AddStockComponent(props) {
 	const initialTransaction = {

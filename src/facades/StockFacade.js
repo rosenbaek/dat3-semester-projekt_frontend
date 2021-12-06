@@ -42,6 +42,19 @@ const StockFacade = () => {
 			});
 	};
 
+	const deleteTransactions = (transactionIds, callback) => {
+		const options = Facade.makeOptions("DELETE", true);
+		return fetch(
+			URL_STOCK_API + transactionIds.map((id) => "?ids=" + id),
+			options
+		)
+			.then(handleHttpErrors)
+			.then((res) => {
+				console.log(JSON.stringify(res));
+				return callback(res);
+			});
+	};
+
 	const getUserData = (callback) => {
 		const options = Facade.makeOptions("GET", true);
 		return fetch(URL_STOCK_API, options)
@@ -57,6 +70,7 @@ const StockFacade = () => {
 		getUserData,
 		addEditGroup,
 		deleteGroup,
+		deleteTransactions,
 	};
 };
 
