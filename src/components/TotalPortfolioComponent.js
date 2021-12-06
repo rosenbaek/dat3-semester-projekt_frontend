@@ -1,5 +1,5 @@
 import { styled, useTheme } from "@mui/material/styles";
-import { Card, Typography, Box } from "@mui/material";
+import { Card, Typography, Box, useMediaQuery } from "@mui/material";
 import ReactApexChart from "react-apexcharts";
 import { useEffect, useState } from "react";
 
@@ -7,7 +7,7 @@ const RootStyle = styled(Card)(({ theme }) => ({
 	boxShadow: "none",
 	textAlign: "center",
 	borderRadius: 16,
-	padding: theme.spacing(3, 0),
+	padding: theme.spacing(2, 0),
 	color: "rgb(0, 82, 73)",
 	backgroundColor: "#FFFFFF",
 	borderWidth: 1,
@@ -19,6 +19,7 @@ export default function TotalPortfolioComponent({ user, currency }) {
 	const [dates, setDates] = useState([]);
 	const [values, setValues] = useState([]);
 	const theme = useTheme();
+	const hiddenDown = useMediaQuery(theme.breakpoints.down("sm"));
 
 	const CHART_DATA = [
 		{
@@ -32,7 +33,7 @@ export default function TotalPortfolioComponent({ user, currency }) {
 		setValues([]);
 		user.historicalPortFolioValue.forEach((value) => {
 			setDates((dates) => [...dates, value.date]);
-			setValues((values) => [...values, value.value.toFixed(2)]);
+			setValues((values) => [...values, value.value.toFixed(0)]);
 		});
 	}, [user]);
 
@@ -96,9 +97,18 @@ export default function TotalPortfolioComponent({ user, currency }) {
 			<Box sx={{ display: "flex", alignItems: "center" }}>
 				{/* on small screens(phones), this item takes up 5 units. On medium-sized screens(tablets), take up 8 units. If an item is too large, it will go to the next line. */}
 				<Box sx={{ flex: 7 }}>
-					<Box sx={{ display: "flex", alignItems: "center" }}>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: hiddenDown ? "flex-start" : "center",
+							flexDirection: hiddenDown ? "column" : "row",
+						}}
+					>
 						<Box>
-							<Typography variant="h5" sx={{ marginLeft: 4, color: "#282357" }}>
+							<Typography
+								variant={hiddenDown ? "h6" : "h5"}
+								sx={{ marginLeft: 2, color: "#282357" }}
+							>
 								Total Porfolio value
 							</Typography>
 						</Box>
@@ -118,14 +128,24 @@ export default function TotalPortfolioComponent({ user, currency }) {
 						</Box>
 					</Box>
 				</Box>
-				<Box sx={{ flex: 3 }}>
-					<Typography variant="h6" sx={{ float: "right", marginRight: 4 }}>
+				<Box
+					sx={{
+						flex: 4,
+						display: "flex",
+						flexDirection: "column",
+						alignItems: "flex-end",
+					}}
+				>
+					<Typography
+						variant={hiddenDown ? null : "h6"}
+						sx={{ float: "right", marginRight: 3 }}
+					>
 						{user.totalPortfolioValue.toFixed(2)} {currency.toUpperCase()}
 					</Typography>
 				</Box>
 			</Box>
 
-			<Box sx={{ p: 3, pb: 1 }}>
+			<Box sx={{ paddingLeft: 0, paddingRight: 2, paddingTop: 1 }}>
 				<ReactApexChart
 					type="line"
 					series={CHART_DATA}

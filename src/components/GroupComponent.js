@@ -1,29 +1,16 @@
 import { styled, useTheme } from "@mui/material/styles";
-import { Card, Typography, Modal, TextField } from "@mui/material";
+import {
+	Card,
+	Typography,
+	Modal,
+	TextField,
+	useMediaQuery,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useState } from "react";
 import StockListComponent from "./StockListComponent";
 import Button from "@mui/material/Button";
 import StockFacade from "../facades/StockFacade";
-
-const RootStyle = styled(Card)(({ theme }) => ({
-	boxShadow: "none",
-	textAlign: "left",
-	borderRadius: 16,
-	height: 150,
-	width: 200,
-
-	marginRight: 25,
-	padding: theme.spacing(2, 2),
-	color: "rgb(0, 82, 73)",
-	backgroundColor: "#FFFFFF",
-	flexShrink: 0,
-
-	cursor: "pointer",
-	":hover": {
-		backgroundColor: "#FAFAFA",
-	},
-}));
 
 const style = {
 	position: "absolute",
@@ -56,6 +43,26 @@ export default function GroupView({
 	};
 
 	const theme = useTheme();
+	const hiddenDown = useMediaQuery(theme.breakpoints.down("sm"));
+
+	const RootStyle = styled(Card)(({ theme }) => ({
+		boxShadow: "none",
+		textAlign: "left",
+		borderRadius: 16,
+		height: 150,
+		width: hiddenDown ? 158 : 200,
+
+		marginRight: 25,
+		padding: theme.spacing(2, 2),
+		color: "rgb(0, 82, 73)",
+		backgroundColor: "#FFFFFF",
+		flexShrink: 0,
+
+		cursor: "pointer",
+		":hover": {
+			backgroundColor: "#FAFAFA",
+		},
+	}));
 
 	const handleChange = (event) => {
 		const target = event.target;

@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import StockFacade from "../facades/StockFacade";
 import NewsComponent from "../components/NewsComponent";
 import AddIcon from "@mui/icons-material/Add";
+import HideComponent from "../components/utility/HideComponent";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -112,30 +113,57 @@ const DashboardScreen = (props) => {
 							Hi, Welcome back {user.username}
 						</Typography>
 					</Box>
-					<Typography variant="h5" sx={{ textAlign: "left" }}>
-						Groups
-					</Typography>
+					<Box sx={{ display: "flex", alignItems: "center" }}>
+						<Typography variant="h5" sx={{ textAlign: "left" }}>
+							Groups
+						</Typography>
+						<HideComponent width="smUp">
+							<Box
+								onClick={handleOpen}
+								sx={{
+									height: 30,
+									width: 40,
+									flexShrink: 0,
+									borderRadius: 1,
+									marginLeft: 2,
+									display: "flex",
+									backgroundColor: "#4B4BAC",
+									alignItems: "center",
+									justifyContent: "center",
+									cursor: "pointer",
+									":hover": {
+										backgroundColor: "#44449B",
+									},
+								}}
+							>
+								<AddIcon sx={{ color: "white", fontSize: 20 }} />
+							</Box>
+						</HideComponent>
+					</Box>
+
 					<Box sx={{ display: "flex", marginY: 3 }}>
-						<Box
-							onClick={handleOpen}
-							sx={{
-								height: 150,
-								width: 200,
-								flexShrink: 0,
-								borderRadius: 4,
-								marginRight: 3,
-								display: "flex",
-								backgroundColor: "#4B4BAC",
-								alignItems: "center",
-								justifyContent: "center",
-								cursor: "pointer",
-								":hover": {
-									backgroundColor: "#44449B",
-								},
-							}}
-						>
-							<AddIcon sx={{ color: "white", fontSize: 50 }} />
-						</Box>
+						<HideComponent width="smDown">
+							<Box
+								onClick={handleOpen}
+								sx={{
+									height: 150,
+									width: 200,
+									flexShrink: 0,
+									borderRadius: 4,
+									marginRight: 3,
+									display: "flex",
+									backgroundColor: "#4B4BAC",
+									alignItems: "center",
+									justifyContent: "center",
+									cursor: "pointer",
+									":hover": {
+										backgroundColor: "#44449B",
+									},
+								}}
+							>
+								<AddIcon sx={{ color: "white", fontSize: 50 }} />
+							</Box>
+						</HideComponent>
 
 						<Box
 							sx={{
