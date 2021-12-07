@@ -108,12 +108,17 @@ const DashboardScreen = (props) => {
 		<MainStyle>
 			{user ? (
 				<Container maxWidth="xl">
-					<Box sx={{ py: 5, textAlign: "left" }}>
+					<Box sx={{ py: 3, textAlign: "left" }}>
 						<Typography variant="h5" sx={{ textTransform: "capitalize" }}>
 							Hi, Welcome back {user.username}
 						</Typography>
 					</Box>
-					<Box sx={{ display: "flex", alignItems: "center" }}>
+					<Box
+						sx={{
+							display: "flex",
+							alignItems: "center",
+						}}
+					>
 						<Typography variant="h5" sx={{ textAlign: "left" }}>
 							Groups
 						</Typography>
@@ -141,13 +146,13 @@ const DashboardScreen = (props) => {
 						</HideComponent>
 					</Box>
 
-					<Box sx={{ display: "flex", marginY: 3 }}>
+					<Box sx={{ display: "flex", marginBottom: 3, marginTop: 1 }}>
 						<HideComponent width="smDown">
 							<Box
 								onClick={handleOpen}
 								sx={{
-									height: 150,
-									width: 200,
+									height: 130,
+									width: 180,
 									flexShrink: 0,
 									borderRadius: 4,
 									marginRight: 3,

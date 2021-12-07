@@ -18,7 +18,6 @@ import {
 import MuiDrawer from "@mui/material/Drawer";
 import HideComponent from "../utility/HideComponent";
 import MenuValues from "./MenuItems";
-import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import menu2Fill from "@iconify/icons-eva/menu-2-fill";
 import { Icon } from "@iconify/react";
 

@@ -130,15 +130,15 @@ export default function TotalPortfolioComponent({ user, currency }) {
 				</Box>
 				<Box
 					sx={{
-						flex: 4,
+						flex: 3,
 						display: "flex",
 						flexDirection: "column",
 						alignItems: "flex-end",
 					}}
 				>
 					<Typography
-						variant={hiddenDown ? null : "h6"}
-						sx={{ float: "right", marginRight: 3 }}
+						variant={hiddenDown ? "null" : "h6"}
+						sx={{ float: "right", marginRight: 2.8 }}
 					>
 						{user.totalPortfolioValue.toFixed(2)} {currency.toUpperCase()}
 					</Typography>
