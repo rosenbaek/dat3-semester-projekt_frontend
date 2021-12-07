@@ -11,6 +11,7 @@ import Sidebar from "./components/navigation/Sidebar";
 import TopBar from "./components/navigation/TopBar";
 import StockScreen from "./screens/StockScreen";
 import UserScreen from "./screens/UserScreen";
+import StockFacade from "./facades/StockFacade";
 
 function App() {
 	const [loggedIn, setLoggedIn] = React.useState(Facade.loggedIn());
@@ -24,7 +25,9 @@ function App() {
 	};
 
 	useEffect(() => {
-		setUser(Facade.getUser);
+		StockFacade.getUserData((user) => {
+			setUser(user);
+		});
 	}, [loggedIn, history]);
 
 	return (
@@ -36,7 +39,7 @@ function App() {
 				flex: 1,
 			}}
 		>
-			{loggedIn ? (
+			{loggedIn && user ? (
 				<>
 					<Sidebar
 						isOpenSidebar={open}

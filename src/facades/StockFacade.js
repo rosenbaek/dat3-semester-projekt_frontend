@@ -1,4 +1,4 @@
-import { URL_STOCK_API } from "../constants.js";
+import { URL_STOCK_API, URL } from "../constants.js";
 import Facade from "./Facade.js";
 
 const handleHttpErrors = async (res) => {
@@ -65,12 +65,34 @@ const StockFacade = () => {
 			});
 	};
 
+	const updateUserData = (body, callback) => {
+		const options = Facade.makeOptions("PUT", true, body);
+		return fetch(URL + "/api/user", options)
+			.then(handleHttpErrors)
+			.then((res) => {
+				console.log("UpdateUserData API call ------->");
+				return callback(res);
+			});
+	};
+
+	const getAllCurrencies = (callback) => {
+		const options = Facade.makeOptions("GET", true);
+		return fetch(URL_STOCK_API + "/currencies", options)
+			.then(handleHttpErrors)
+			.then((res) => {
+				console.log("getAllCurrencies API call ------->");
+				return callback(res);
+			});
+	};
+
 	return {
 		addTransaction,
 		getUserData,
 		addEditGroup,
 		deleteGroup,
 		deleteTransactions,
+		updateUserData,
+		getAllCurrencies,
 	};
 };
 

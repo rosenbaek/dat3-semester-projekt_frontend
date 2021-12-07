@@ -26,9 +26,9 @@ const UserScreen = ({ user }) => {
 	const [updateUserObject, setUpdateUserObject] = useState({
 		username: "",
 		defaultCurrency: "",
-		password: "",
 	});
-	const currencies = ["dkk", "usd"];
+	const [currencies, setCurrencies] = useState([]);
+	const [currencies1, setCurrencies1] = useState([]);
 
 	const handleChange = (event) => {
 		const target = event.target;
@@ -36,9 +36,7 @@ const UserScreen = ({ user }) => {
 		const value = target.value;
 		setUpdateUserObject({ ...updateUserObject, [id]: value });
 	};
-	useEffect(() => {
-		console.log(updateUserObject.defaultCurrency);
-	});
+
 	useEffect(() => {
 		StockFacade.getUserData((user) => {
 			setUpdateUserObject({
@@ -47,8 +45,31 @@ const UserScreen = ({ user }) => {
 				defaultCurrency: user.defaultCurrency,
 			});
 		});
+		StockFacade.getAllCurrencies((res) => {
+			res.map((c) => {
+				setCurrencies(res);
+			});
+		});
 	}, []);
 
+	const handleUpdate = () => {
+		StockFacade.updateUserData(updateUserObject, (res) => {
+			console.log(res);
+		});
+	};
+
+	const saveNeeded = () => {
+		if (user) {
+			if (
+				updateUserObject.defaultCurrency === user.defaultCurrency &&
+				!updateUserObject.password
+			) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	};
 	return (
 		<MainStyle>
 			<Box
@@ -70,7 +91,7 @@ const UserScreen = ({ user }) => {
 				/>
 
 				<Autocomplete
-					options={currencies}
+					options={currencies.map((c) => c.code)}
 					disablePortal
 					value={updateUserObject.defaultCurrency}
 					onChange={(event, newVal) => {
@@ -108,8 +129,9 @@ const UserScreen = ({ user }) => {
 
 				<Button
 					variant="contained"
-					disabled={true}
+					disabled={saveNeeded()}
 					sx={{ width: 150, height: 50, alignSelf: "flex-end" }}
+					onClick={handleUpdate}
 				>
 					Save
 				</Button>

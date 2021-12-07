@@ -1,8 +1,6 @@
 import { Icon } from "@iconify/react";
 import lockFill from "@iconify/icons-eva/lock-fill";
-import homeFill from "@iconify/icons-eva/home-fill";
 import personFill from "@iconify/icons-eva/person-fill";
-import settings2Fill from "@iconify/icons-eva/settings-2-fill";
 
 const getIcon = (name) => <Icon icon={name} width={24} height={24} />;
 
@@ -35,19 +33,9 @@ const MenuValues = [
 
 export const MENU_OPTIONS = [
 	{
-		label: "Home",
-		icon: homeFill,
-		linkTo: "/",
-	},
-	{
 		label: "Profile",
 		icon: personFill,
-		linkTo: "#",
-	},
-	{
-		label: "Settings",
-		icon: settings2Fill,
-		linkTo: "#",
+		linkTo: "/user",
 	},
 ];
 

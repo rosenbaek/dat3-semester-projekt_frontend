@@ -20,6 +20,7 @@ import HideComponent from "../utility/HideComponent";
 import MenuValues from "./MenuItems";
 import menu2Fill from "@iconify/icons-eva/menu-2-fill";
 import { Icon } from "@iconify/react";
+import Facade from "../../facades/Facade";
 
 // ----------------------------------------------------------------------
 
@@ -125,7 +126,10 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 			<Box>
 				<List disablePadding>
 					{MenuValues.map((menu) => {
-						if (user && menu.auth.some((item) => user.roles.includes(item))) {
+						if (
+							user &&
+							menu.auth.some((item) => Facade.getUser().roles.includes(item))
+						) {
 							return (
 								<ListItemButton
 									key={menu.titel}
@@ -181,7 +185,7 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 			</Box>
 
 			<Box sx={{ flexGrow: 1 }} />
-			<Link underline="none" component={RouterLink} to="#">
+			<Link underline="none" component={RouterLink} to="/user">
 				<Box
 					sx={{
 						mb: 2,
@@ -192,10 +196,11 @@ export default function Sidebar({ isOpenSidebar, onCloseSidebar, user }) {
 						position: "relative",
 						color: "#A09EB8",
 						verticalAlign: "center",
+						textTransform: "uppercase",
 						":hover": { bgcolor: "#EFEFF2" },
 					}}
 				>
-					DKK
+					{user.defaultCurrency}
 				</Box>
 			</Link>
 		</>
