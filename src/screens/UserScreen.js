@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Autocomplete, Button, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
@@ -28,6 +28,7 @@ const UserScreen = ({ user }) => {
 		defaultCurrency: "",
 		password: "",
 	});
+	const currencies = ["dkk", "usd"];
 
 	const handleChange = (event) => {
 		const target = event.target;
@@ -35,7 +36,9 @@ const UserScreen = ({ user }) => {
 		const value = target.value;
 		setUpdateUserObject({ ...updateUserObject, [id]: value });
 	};
-
+	useEffect(() => {
+		console.log(updateUserObject.defaultCurrency);
+	});
 	useEffect(() => {
 		StockFacade.getUserData((user) => {
 			setUpdateUserObject({
@@ -44,7 +47,7 @@ const UserScreen = ({ user }) => {
 				defaultCurrency: user.defaultCurrency,
 			});
 		});
-	});
+	}, []);
 
 	return (
 		<MainStyle>
@@ -63,15 +66,32 @@ const UserScreen = ({ user }) => {
 					value={updateUserObject.username}
 					onChange={handleChange}
 					sx={{ marginBottom: 3 }}
-					required
+					disabled
 				/>
-				<TextField
-					id="defaultCurrency"
-					label="Default Currency"
+
+				<Autocomplete
+					options={currencies}
+					disablePortal
 					value={updateUserObject.defaultCurrency}
-					onChange={handleChange}
+					onChange={(event, newVal) => {
+						if (newVal !== null) {
+							setUpdateUserObject({
+								...updateUserObject,
+								defaultCurrency: newVal,
+							});
+						}
+					}}
 					sx={{ marginBottom: 3 }}
-					required
+					renderInput={(params) => (
+						<TextField
+							{...params}
+							id="defaultCurrency"
+							label="Default Currency"
+							InputProps={{
+								...params.InputProps,
+							}}
+						/>
+					)}
 				/>
 				<TextField
 					id="password"
