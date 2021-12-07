@@ -30,6 +30,11 @@ function App() {
 		});
 	}, [loggedIn, history]);
 
+	const handleReload = () => {
+		StockFacade.getUserData((user) => {
+			setUser(user);
+		});
+	};
 	return (
 		<div
 			className="App"
@@ -87,6 +92,7 @@ function App() {
 					loggedIn={loggedIn}
 					user={user}
 					component={UserScreen}
+					reload={handleReload}
 				/>
 
 				<Route path="/login">

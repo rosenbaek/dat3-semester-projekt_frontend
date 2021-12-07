@@ -1,4 +1,5 @@
 import { Autocomplete, Button, TextField } from "@mui/material";
+import { Switch, Route, useHistory } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
@@ -22,7 +23,8 @@ const MainStyle = styled("div")(({ theme }) => ({
 	},
 }));
 
-const UserScreen = ({ user }) => {
+const UserScreen = ({ user, reload }) => {
+	const history = useHistory();
 	const [updateUserObject, setUpdateUserObject] = useState({
 		username: "",
 		defaultCurrency: "",
@@ -55,6 +57,7 @@ const UserScreen = ({ user }) => {
 	const handleUpdate = () => {
 		StockFacade.updateUserData(updateUserObject, (res) => {
 			console.log(res);
+			reload();
 		});
 	};
 
