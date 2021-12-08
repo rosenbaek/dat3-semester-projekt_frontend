@@ -28,7 +28,7 @@ const Facade = () => {
 	};
 
 	const createUser = (body, callback) => {
-		const options = Facade.makeOptions("POST", true, body);
+		const options = makeOptions("POST", true, body);
 		return fetch(URL + "/api/user", options)
 			.then(handleHttpErrors)
 			.then((res) => {

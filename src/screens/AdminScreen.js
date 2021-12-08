@@ -121,8 +121,16 @@ const AdminScreen = (props) => {
 					<Autocomplete
 						multiple
 						id="tags-standard"
-						options={[{ roleName: "user" }, { roleName: "admin" }]}
-						getOptionLabel={(option) => option.roleName}
+						options={[{ rolename: "user" }, { rolename: "admin" }]}
+						getOptionLabel={(option) => option.rolename}
+						onChange={(event, newVal) => {
+							if (newVal !== null) {
+								setNewUserObject({
+									...newUserObject,
+									roles: newVal,
+								});
+							}
+						}}
 						renderInput={(params) => (
 							<TextField {...params} label="Roles" placeholder="Roles" />
 						)}
