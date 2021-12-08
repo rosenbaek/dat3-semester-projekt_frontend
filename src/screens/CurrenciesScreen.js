@@ -48,7 +48,7 @@ var columns = [
 		renderCell: (params) => (
 			<Box
 				sx={{
-					backgroundColor: params.value > 0 ? "#F74769" : "#0EC477",
+					backgroundColor: params.value > 0 ? "#0EC477" : "#F74769",
 					color: "white",
 					borderRadius: 3,
 					padding: 1,
@@ -72,7 +72,7 @@ var columns = [
 		renderCell: (params) => (
 			<Box
 				sx={{
-					backgroundColor: params.value > 0 ? "#F74769" : "#0EC477",
+					backgroundColor: params.value > 0 ? "#0EC477" : "#F74769",
 					color: "white",
 					borderRadius: 3,
 					padding: 1,
@@ -96,7 +96,7 @@ var columns = [
 		renderCell: (params) => (
 			<Box
 				sx={{
-					backgroundColor: params.value > 0 ? "#F74769" : "#0EC477",
+					backgroundColor: params.value > 0 ? "#0EC477" : "#F74769",
 					color: "white",
 					borderRadius: 3,
 					padding: 1,
