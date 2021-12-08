@@ -27,6 +27,16 @@ const Facade = () => {
 			});
 	};
 
+	const createUser = (body, callback) => {
+		const options = Facade.makeOptions("POST", true, body);
+		return fetch(URL + "/api/user", options)
+			.then(handleHttpErrors)
+			.then((res) => {
+				console.log("CreateUser API call ------->");
+				return callback(res);
+			});
+	};
+
 	const setUser = (username, roles) => {
 		const user = { username, roles };
 		//makes the user object in json format, as you cant store objects in localStorage
@@ -73,6 +83,7 @@ const Facade = () => {
 		setToken,
 		getToken,
 		loggedIn,
+		createUser,
 		login,
 		logout,
 	};
