@@ -85,6 +85,19 @@ const StockFacade = () => {
 			});
 	};
 
+	const getAllHistoricalCurrencies = (baseCurrency, callback) => {
+		const options = Facade.makeOptions("GET", true);
+		return fetch(
+			URL_STOCK_API + "/historical/currencies/" + baseCurrency,
+			options
+		)
+			.then(handleHttpErrors)
+			.then((res) => {
+				console.log("getAllHistoricalCurrencies API call ------->");
+				return callback(res);
+			});
+	};
+
 	return {
 		addTransaction,
 		getUserData,
@@ -93,6 +106,7 @@ const StockFacade = () => {
 		deleteTransactions,
 		updateUserData,
 		getAllCurrencies,
+		getAllHistoricalCurrencies,
 	};
 };
 

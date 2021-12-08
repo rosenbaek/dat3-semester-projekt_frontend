@@ -4,7 +4,7 @@ import Login from "./screens/LoginScreen";
 import { Switch, Route, useHistory } from "react-router-dom";
 import PrivateRoute from "./components/utility/PrivateRoute";
 import Home from "./screens/DashboardScreen";
-import ProtectedScreen from "./screens/ProtectedScreen";
+import CurrenciesScreen from "./screens/CurrenciesScreen";
 import Facade from "./facades/Facade";
 import AdminScreen from "./screens/AdminScreen";
 import Sidebar from "./components/navigation/Sidebar";
@@ -71,9 +71,10 @@ function App() {
 				</Route>
 
 				<PrivateRoute
-					path="/protected"
+					path="/currencies"
 					loggedIn={loggedIn}
-					component={ProtectedScreen}
+					user={user}
+					component={CurrenciesScreen}
 				/>
 				<PrivateRoute
 					path="/admin"

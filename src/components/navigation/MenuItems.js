@@ -25,7 +25,7 @@ const MenuValues = [
 	},
 	{
 		titel: "Currencies",
-		path: "/protected",
+		path: "/currencies",
 		auth: ["user"],
 		icon: getIcon("bi:currency-exchange"),
 	},
