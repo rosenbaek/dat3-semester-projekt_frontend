@@ -27,6 +27,7 @@ function App() {
 	useEffect(() => {
 		StockFacade.getUserData((user) => {
 			setUser(user);
+			console.log(JSON.stringify(user));
 		});
 	}, [loggedIn, history]);
 

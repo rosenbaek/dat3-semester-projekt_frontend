@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import { URL } from "../constants.js";
 
 const handleHttpErrors = async (res) => {
@@ -58,6 +59,7 @@ const Facade = () => {
 	const logout = () => {
 		localStorage.removeItem("jwtToken");
 		localStorage.removeItem("user");
+		window.location.reload();
 	};
 
 	const makeOptions = (method, addToken, body) => {

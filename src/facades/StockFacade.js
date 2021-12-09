@@ -4,6 +4,7 @@ import Facade from "./Facade.js";
 const handleHttpErrors = async (res) => {
 	if (!res.ok) {
 		const response = await res.json();
+		console.log(JSON.stringify(response));
 		if (response.message === "Token not valid (timed out?)") {
 			Facade.logout();
 		}

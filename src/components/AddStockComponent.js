@@ -10,8 +10,10 @@ export default function AddStockComponent(props) {
 		boughtPrice: "",
 	};
 	const [transaction, setTransaction] = useState(initialTransaction);
+	const [error, setError] = useState();
 
 	const handleChange = (event) => {
+		setError();
 		const target = event.target;
 		const id = target.id;
 		const value = target.value;
@@ -20,7 +22,13 @@ export default function AddStockComponent(props) {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		StockFacade.addTransaction(transaction);
+
+		StockFacade.addTransaction(transaction).catch(async (err) => {
+			const e = await err;
+			setError(e.message);
+			console.log(e.message);
+		});
+
 		setTransaction(initialTransaction);
 		props.handleReload();
 	};
@@ -79,6 +87,12 @@ export default function AddStockComponent(props) {
 						</Button>
 					</Grid>
 				</Grid>
+				<Typography
+					variant="h5"
+					sx={{ color: "red", margin: 2, marginBottom: 0 }}
+				>
+					{error}
+				</Typography>
 			</Paper>
 		</form>
 	);
