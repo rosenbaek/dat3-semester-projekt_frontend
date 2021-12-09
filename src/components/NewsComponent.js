@@ -35,7 +35,7 @@ const NewsComponent = ({ news }) => {
 					>
 						<CardMedia
 							component="img"
-							sx={{ width: 90, height: 90, borderRadius: 1 }}
+							sx={{ width: 80, height: 80, borderRadius: 1 }}
 							image={n.urlImage}
 						/>
 						<Box sx={{ flex: 1, display: "flex", alignItems: "center", mx: 2 }}>

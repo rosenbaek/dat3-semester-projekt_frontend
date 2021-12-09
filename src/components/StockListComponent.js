@@ -86,8 +86,7 @@ const StockListComponent = ({ data, group, reload, setSelected, selected }) => {
 			autoPageSize
 			rows={rows}
 			columns={columnsData}
-			pageSize={10}
-			rowsPerPageOptions={[10]}
+			pageSize={5}
 			checkboxSelection
 			onSelectionModelChange={(newSelectionModel) => {
 				setSelected(newSelectionModel);
