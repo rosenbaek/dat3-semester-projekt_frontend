@@ -44,7 +44,6 @@ const style = {
 	maxWidth: 900,
 	maxHeight: "80%",
 	bgcolor: "white",
-	border: "1px solid #ebebeb",
 	borderRadius: 4,
 	boxShadow: 24,
 	p: 2,
@@ -265,7 +264,7 @@ const DashboardScreen = (props) => {
 									display: "flex",
 
 									justifyContent: "flex-end",
-									marginTop: 3,
+									marginTop: 2,
 								}}
 							>
 								<Button
